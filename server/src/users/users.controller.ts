@@ -19,7 +19,7 @@ export class UsersController {
 
   @ApiOperation({summary: 'user creation'})
   @ApiResponse({status: 200, type: User})
-  // @UsePipes(ValidationPipe)
+  @UsePipes(ValidationPipe)
   @Post()
   create(@Body() userDto: CreateUserDto) {
     return this.userService.createUser(userDto)
@@ -27,9 +27,9 @@ export class UsersController {
 
   @ApiOperation({summary: 'get all users from DB'})
   @ApiResponse({status: 200, type: [User]})
-  // @UseGuards(JwtAuthGuards)
-  // @Roles('ADMIN')
-  // @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuards)
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Get()
   getAll() {
     return this.userService.getAllUsers()
@@ -37,7 +37,7 @@ export class UsersController {
 
   @ApiOperation({summary: 'give role'})
   @ApiResponse({status: 200})
-  // @UseGuards(JwtAuthGuards)
+  @UseGuards(JwtAuthGuards)
   @Roles('ADMIN')
   @UseGuards(RolesGuard)
   @Post('/role')
@@ -47,7 +47,7 @@ export class UsersController {
 
   @ApiOperation({summary: 'ban user'})
   @ApiResponse({status: 200})
-  // @UseGuards(JwtAuthGuards)
+  @UseGuards(JwtAuthGuards)
   @Roles('ADMIN')
   @UseGuards(RolesGuard)
   @Post('/ban')
