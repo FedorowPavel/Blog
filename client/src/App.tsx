@@ -1,20 +1,22 @@
 import React from 'react';
 import {useTheme} from "@mui/styles";
-import {Typography} from "@mui/material";
 import {BlogTheme} from "@mui/material/styles";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import Main from "./components/Main";
+import Login from "./components/Login";
+import Registration from "./components/Registration";
 
 function App() {
   const theme = useTheme<BlogTheme>()
 
   return (
-    <Typography
-      variant={"h4"}
-      sx={{
-        color: theme.bgColors.regular
-      }}
-    >
-      My Blog
-    </Typography>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Main/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/registration' element={<Registration/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
