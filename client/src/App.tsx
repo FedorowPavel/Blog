@@ -5,6 +5,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Main from "./components/Main";
 import Login from "./components/Login";
 import Registration from "./components/Registration";
+import Layout from "./components/Layout";
 
 function App() {
   const theme = useTheme<BlogTheme>()
@@ -12,9 +13,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Main/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/registration' element={<Registration/>}/>
+        <Route path='/' element={<Layout/>}>
+          <Route index element={<Main/>}/>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/registration' element={<Registration/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

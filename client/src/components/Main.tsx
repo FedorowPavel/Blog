@@ -1,10 +1,12 @@
 import React from 'react';
+import {Container} from "@mui/material";
+
 
 const Main = () => {
   return (
-    <div>
+    <Container maxWidth="xl">
       Main page
-    </div>
+    </Container>
   );
 };
 
