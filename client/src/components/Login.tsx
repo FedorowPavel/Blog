@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Card, Container, Typography} from "@mui/material";
+import {Box, Button, Card, Container, TextField, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 
 const Login = () => {
@@ -10,13 +10,13 @@ const Login = () => {
       alignItems: "center",
       justifyContent: "center"
     }}>
-      <Box sx={{
-        minWidth: 275
-      }}>
+      <Box>
         <Card
           variant="outlined"
           sx={{
-            padding: '20px'
+            display: "flex",
+            flexDirection: "column",
+            padding: '30px'
           }}
         >
           <Typography
@@ -26,6 +26,9 @@ const Login = () => {
           >
             Login
           </Typography>
+          <TextField id="outlined-basic" label="Email" variant="outlined" />
+          <TextField id="outlined-basic" label="password" variant="outlined" />
+          <Button variant="contained">Login</Button>
           <Link to='/registration'>Create account</Link>
         </Card>
       </Box>
