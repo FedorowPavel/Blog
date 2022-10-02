@@ -2,10 +2,10 @@ import React from 'react';
 import {useTheme} from "@mui/styles";
 import {BlogTheme} from "@mui/material/styles";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Main from "./components/Main";
-import Login from "./components/Login";
-import Registration from "./components/Registration";
-import Layout from "./components/Layout";
+import Main from "./features/user/Main";
+import Login from "./features/auth/login/Login";
+import Registration from "./features/auth/registration/Registration";
+import Layout from "./common/components/hoc/Layout";
 
 function App() {
   const theme = useTheme<BlogTheme>()

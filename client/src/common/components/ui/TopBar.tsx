@@ -89,7 +89,7 @@ const TopBar = () => {
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link to={page}>
+                    <Link to={page.toLowerCase()}>
                       {page}
                     </Link>
                   </Typography>
@@ -122,7 +122,7 @@ const TopBar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{my: 2, color: 'white', display: 'block'}}
               >
-                <Link to={page}>
+                <Link to={page.toLowerCase()}>
                   {page}
                 </Link>
               </Button>

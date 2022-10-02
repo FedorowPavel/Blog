@@ -1,7 +1,7 @@
 import {createTheme} from "@mui/material/styles";
 import {BlogTheme} from "@mui/material/styles";
 import {ThemeProvider} from "@mui/styles";
-import {BlogProviderProps} from "../models";
+import {BlogProviderProps} from "../../types/models";
 
 
 function BlogThemeProvider({children}: BlogProviderProps) {
