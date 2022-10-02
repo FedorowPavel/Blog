@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Box,
   Button,
   Card,
   Container, FormControl,
@@ -39,7 +40,15 @@ const Login = () => {
   }
 
   return (
-    <Container maxWidth="xl" sx={{ minHeight: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
+    <Box sx={{
+      position: 'absolute',
+      top: '50%',
+      right: '50%',
+      transform: 'translate(50%, -50%)',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }}>
       <Card
         variant="outlined"
         sx={{ display: "flex", flexDirection: "column", padding: 4}}
@@ -124,7 +133,7 @@ const Login = () => {
         {/*  {JSON.stringify(errors, null, 2)}*/}
         {/*</pre>*/}
       </Card>
-    </Container>
+    </Box>
   );
 };
 

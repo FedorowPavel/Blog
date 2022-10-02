@@ -36,7 +36,7 @@ const TopBar = () => {
   };
 
   return (
-    <AppBar position="absolute">
+    <AppBar position='static'>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography

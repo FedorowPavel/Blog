@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Outlet} from "react-router-dom";
 import TopBar from "../ui/TopBar";
-import {Container} from "@mui/material";
+import {Box, Container} from "@mui/material";
 import {useTheme} from "@mui/styles";
 import {BlogTheme} from "@mui/material/styles";
 
@@ -10,15 +10,22 @@ const Layout = () => {
   const theme = useTheme<BlogTheme>()
 
   return (
-    <>
+    <Box
+      sx={{
+        minWidth: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh'
+    }}>
       <TopBar/>
-      <Container sx={{
-        height: '100vh',
-        backgroundColor: theme.palette.grey["300"]
+      <Box sx={{
+        backgroundColor: theme.palette.grey["300"],
+        flexGrow: 1,
+        position: 'relative'
       }}>
         <Outlet/>
-      </Container>
-    </>
+      </Box>
+    </Box>
 
   );
 };
