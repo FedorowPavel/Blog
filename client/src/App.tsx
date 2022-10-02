@@ -5,7 +5,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Main from "./features/user/Main";
 import Login from "./features/auth/login/Login";
 import Registration from "./features/auth/registration/Registration";
-import Layout from "./common/components/hoc/Layout";
+import Layout from "./common/components/wrappers/Layout";
 
 function App() {
   const theme = useTheme<BlogTheme>()

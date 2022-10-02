@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Outlet} from "react-router-dom";
 import TopBar from "../ui/TopBar";
-import {Box, Container} from "@mui/material";
+import {Box} from "@mui/material";
 import {useTheme} from "@mui/styles";
 import {BlogTheme} from "@mui/material/styles";
 
