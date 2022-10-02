@@ -1,15 +1,13 @@
-import React, {FC} from 'react';
+import React, {FC, useCallback} from 'react';
 import {
   Button,
   FormGroup,
-  IconButton,
-  InputAdornment,
   TextField
 } from "@mui/material";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {LoginFormData} from "./types";
+import {LoginFormData, LoginFormFieldsEnum} from "./types";
 import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapper";
+import PasswordVisibilityIcon from "./PasswordVisibilityIcon";
 
 
 const LoginForm: FC = () => {
@@ -27,9 +25,9 @@ const LoginForm: FC = () => {
     console.log(data)
   };
 
-  function toggleShowPassword() {
+  const toggleShowPassword = useCallback(() => {
     setValue('showPassword', !getValues().showPassword)
-  }
+  }, [])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -47,13 +45,13 @@ const LoginForm: FC = () => {
               <TextField
                 {...field}
                 fullWidth
-                error={!!errors['email']}
+                error={!!errors[LoginFormFieldsEnum.EMAIL]}
+                helperText={errors[LoginFormFieldsEnum.EMAIL]?.message}
                 autoFocus
                 id='email'
                 type='email'
                 label='email'
                 autoComplete='off'
-                helperText={errors['email']?.message}
               />
             </FormFieldWrapper>
           )}
@@ -75,18 +73,10 @@ const LoginForm: FC = () => {
                 type={getValues().showPassword ? 'text' : 'password'}
                 label="Password"
                 autoComplete='off'
-                error={!!errors['password']}
-                helperText={errors['password']?.message}
+                error={!!errors[LoginFormFieldsEnum.PASSWORD]}
+                helperText={errors[LoginFormFieldsEnum.PASSWORD]?.message}
                 InputProps={{
-                  endAdornment: <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={toggleShowPassword}
-                      edge="end"
-                    >
-                      {watch().showPassword ? <VisibilityOff/> : <Visibility/>}
-                    </IconButton>
-                  </InputAdornment>
+                  endAdornment: <PasswordVisibilityIcon watch={watch} toggleShowPassword={toggleShowPassword}/>
                 }}
               />
             </FormFieldWrapper>
