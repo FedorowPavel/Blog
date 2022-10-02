@@ -1,14 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {
   Box,
   Card,
-  Typography
 } from "@mui/material";
 import {Link} from "react-router-dom";
 import LoginForm from './LoginForm';
 import Title from "../../../common/components/ui/Title";
 
-const Login = () => {
+const Login: FC = () => {
     return (
     <Box sx={{
       position: 'absolute',
