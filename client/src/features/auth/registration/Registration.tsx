@@ -30,7 +30,6 @@ const Registration = () => {
           </Stepper>
 
           {currentStepComponent()}
-          {/*<pre>{JSON.stringify(location, null, 2)}</pre>*/}
         </>
       </Box>
 

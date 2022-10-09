@@ -1,16 +1,16 @@
-import React, {createContext, FC, ReactNode, useContext, useEffect, useState} from 'react';
+import React, {cloneElement, createContext, FC, ReactNode, useContext, useEffect, useState} from 'react';
 import Title from "../../../common/components/ui/Title";
 import {Box, Button, Card} from "@mui/material";
 import {useStep} from "./useStep";
-import {RegistrationType} from "./RegistrationContext";
 
 type Props = {
   title: string,
-  children: ReactNode
+  children: JSX.Element
 }
 
 const StepWrapper: FC<Props> = ({title, children}) => {
   const {nextStep, prevStep, prevIsDisabled, isLastStep} = useStep()
+  const [isCurrentFormValid, setIsCurrentFormValid] = useState()
 
   return (
       <Card sx={{
@@ -24,7 +24,8 @@ const StepWrapper: FC<Props> = ({title, children}) => {
       }}>
         <Title title={title} variant={'h5'}/>
 
-        {children}
+        {cloneElement(children, {setIsCurrentFormValid})}
+
         <Box sx={{
           width: '100%',
           display: 'flex',
@@ -33,7 +34,7 @@ const StepWrapper: FC<Props> = ({title, children}) => {
           <Button variant={'contained'} onClick={prevStep} disabled={prevIsDisabled}>Prev Step</Button>
           {
             !isLastStep
-              ? <Button variant={'contained'} onClick={nextStep}>Next Step</Button>
+              ? <Button variant={'contained'} onClick={nextStep} disabled={!isCurrentFormValid}>Next Step</Button>
               : <Button variant={'contained'} onClick={nextStep}>Register</Button>
           }
         </Box>

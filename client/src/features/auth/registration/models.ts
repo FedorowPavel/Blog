@@ -1,8 +1,7 @@
-import {FC} from "react";
 
 export interface RegistrationStep {
   title: string,
-  component: FC,
+  component: JSX.Element,
 }
 
 export enum StepTitlesEnum {
@@ -10,3 +9,5 @@ export enum StepTitlesEnum {
   PERSONAL_INFO = 'Personal Info',
   USER_IMAGE = 'User image'
 }
+
+export type StepProps = {setIsCurrentFormValid: (state: boolean) => void}

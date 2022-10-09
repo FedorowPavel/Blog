@@ -3,9 +3,10 @@ import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {LoginFormData, LoginFormFieldsEnum, PersonalInfoFormData} from "../login/types";
 import {Button, FormGroup, MenuItem, Select, TextField} from "@mui/material";
 import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapper";
-import PasswordVisibilityIcon from "../login/PasswordVisibilityIcon";
+import {StepProps} from "./models";
+import {useCurrentFormValidityState} from "./useCurrentFormValidityState";
 
-const PersonalInfoStep: FC = () => {
+const PersonalInfoStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
   const {control, handleSubmit, formState: {isValid, errors}, getValues, setValue, watch} = useForm<PersonalInfoFormData>({
       defaultValues: {
         phone: '',
@@ -15,6 +16,9 @@ const PersonalInfoStep: FC = () => {
       mode: 'all'
     }
   );
+
+  useCurrentFormValidityState(isValid, setIsCurrentFormValid)
+
   const onSubmit: SubmitHandler<PersonalInfoFormData> = data => {
     console.log(data)
   };

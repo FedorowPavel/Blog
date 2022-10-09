@@ -1,33 +1,35 @@
-import React, {FC, useCallback, useContext, useEffect} from 'react';
-import {Controller, SubmitHandler, useForm} from "react-hook-form";
+import React, {FC, useCallback} from 'react';
+import {Controller, useForm, useFormState} from "react-hook-form";
 import {LoginFormData, LoginFormFieldsEnum} from "../login/types";
-import {Button, FormGroup, TextField} from "@mui/material";
+import {FormGroup, TextField} from "@mui/material";
 import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapper";
 import PasswordVisibilityIcon from "../login/PasswordVisibilityIcon";
-import {RegistrationContext, RegistrationType} from "./RegistrationContext";
+import {useCurrentFormValidityState} from "./useCurrentFormValidityState";
+import {StepProps} from "./models";
 
-const CredentialsStep: FC = () => {
+const defaultFormValues = {
+  email: '',
+  password: '',
+  showPassword: false
+}
 
-  const {control, handleSubmit, formState: {isValid, errors}, getValues, setValue, watch} = useForm<LoginFormData>({
-      defaultValues: {
-        email: '',
-        password: '',
-        showPassword: false
-      },
-      mode: 'all'
-    }
-  );
-  const onSubmit: SubmitHandler<LoginFormData> = data => {
-    console.log(data)
-  };
+const CredentialsStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
+  const {
+    control,
+    formState: {isValid, errors},
+    getValues,
+    setValue,
+    watch
+  } = useForm<LoginFormData>({defaultValues: defaultFormValues, mode: 'onChange'});
+
+  useCurrentFormValidityState(isValid, setIsCurrentFormValid)
 
   const toggleShowPassword = useCallback(() => {
     setValue('showPassword', !getValues().showPassword)
   }, [])
 
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form>
       <FormGroup sx={{ display: "flex",  flexDirection: "column"}}>
 
         <Controller
@@ -80,6 +82,8 @@ const CredentialsStep: FC = () => {
           )}
         />
       </FormGroup>
+      {/*<pre>{JSON.stringify(watch(), null ,2)}</pre>*/}
+      {/*<pre>{JSON.stringify(isValid, null ,2)}</pre>*/}
     </form>
   );
 

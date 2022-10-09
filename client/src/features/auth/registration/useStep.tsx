@@ -6,9 +6,9 @@ import {RegistrationStep, StepTitlesEnum} from "./models";
 import StepWrapper from "./StepWrapper";
 
 const steps: RegistrationStep[] = [
-  {title: StepTitlesEnum.CREDENTIALS, component: CredentialsStep},
-  {title: StepTitlesEnum.PERSONAL_INFO, component: PersonalInfoStep},
-  {title: StepTitlesEnum.USER_IMAGE, component: ImageStep},
+  {title: StepTitlesEnum.CREDENTIALS, component: <CredentialsStep setIsCurrentFormValid={()=>{}}/>},
+  {title: StepTitlesEnum.PERSONAL_INFO, component: <PersonalInfoStep setIsCurrentFormValid={()=>{}}/>},
+  {title: StepTitlesEnum.USER_IMAGE, component: <ImageStep setIsCurrentFormValid={()=>{}}/>},
 ]
 
 export function useStep() {
@@ -17,9 +17,9 @@ export function useStep() {
 
   const currentStepComponent = () => {
     if(!currentStepNumber) {
-      return StepWrapper({title: steps[0].title, children: steps[0].component({})})
+      return <StepWrapper title={steps[0].title}>{steps[0].component}</StepWrapper>
     }
-    return StepWrapper({title: steps[currentStepNumber].title, children: steps[currentStepNumber].component({})})
+    return <StepWrapper title={steps[currentStepNumber].title}>{steps[currentStepNumber].component}</StepWrapper>
   }
 
   const nextStep = () => {
