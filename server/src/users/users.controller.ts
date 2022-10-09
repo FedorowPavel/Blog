@@ -17,13 +17,13 @@ export class UsersController {
   constructor(private userService: UsersService) {
   }
 
-  @ApiOperation({summary: 'user creation'})
-  @ApiResponse({status: 200, type: User})
-  @UsePipes(ValidationPipe)
-  @Post()
-  create(@Body() userDto: CreateUserDto) {
-    return this.userService.createUser(userDto)
-  }
+  // @ApiOperation({summary: 'user creation'})
+  // @ApiResponse({status: 200, type: User})
+  // @UsePipes(ValidationPipe)
+  // @Post()
+  // create(@Body() userDto: CreateUserDto) {
+  //   return this.userService.createUser(userDto)
+  // }
 
   @ApiOperation({summary: 'get all users from DB'})
   @ApiResponse({status: 200, type: [User]})

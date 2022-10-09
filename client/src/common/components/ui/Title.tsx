@@ -4,7 +4,7 @@ import {Variant} from "@mui/material/styles/createTypography";
 
 interface TitleProps {
   title: string,
-  variant: Variant,
+  variant?: Variant,
   color?: string,
   gutterBottom?: boolean,
 }
@@ -12,7 +12,7 @@ interface TitleProps {
 const Title: FC<TitleProps> = (
   {
     title,
-    variant,
+    variant = 'h4',
     color= 'text.primary',
     gutterBottom= false
   }
