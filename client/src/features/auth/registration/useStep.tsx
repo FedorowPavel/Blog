@@ -15,11 +15,13 @@ export function useStep() {
   const location = useLocation()
   const navigate = useNavigate();
 
+  const currentStepNumber = location.state || 0
+
   const currentStepComponent = () => {
-    if(!currentStepNumber) {
-      return <StepWrapper title={steps[0].title}>{steps[0].component}</StepWrapper>
-    }
-    return <StepWrapper title={steps[currentStepNumber].title}>{steps[currentStepNumber].component}</StepWrapper>
+    return (
+      <StepWrapper title={steps[currentStepNumber].title}>
+        {steps[currentStepNumber].component}
+      </StepWrapper>)
   }
 
   const nextStep = () => {
@@ -33,8 +35,6 @@ export function useStep() {
   const initStep = () => {
     navigate({}, {state: 0})
   }
-
-  const currentStepNumber = location.state || 0
 
   const prevIsDisabled = !location.state
   const isLastStep = location.state === steps.length - 1

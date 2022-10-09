@@ -1,37 +1,22 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
-import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
+import React from 'react';
+import {Box} from "@mui/material";
 import {useStep} from "./useStep";
+import HeaderStepper from "./HeaderStepper";
 
 const Registration = () => {
-  const {currentStepNumber, currentStepComponent, steps} = useStep()
+  const {currentStepComponent} = useStep()
 
   return (
-      <Box sx={{
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        <>
-          <Stepper
-            activeStep={currentStepNumber}
-            alternativeLabel
-            sx={{
-              width: '90vw',
-              margin: '40px 0'
-            }}
-          >
-            {steps.map(({title}) => (
-              <Step key={title}>
-                <StepLabel>{title}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-
-          {currentStepComponent()}
-        </>
-      </Box>
+    <Box sx={{
+      flexGrow: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
+      <HeaderStepper/>
+      {currentStepComponent()}
+    </Box>
 
   );
 };

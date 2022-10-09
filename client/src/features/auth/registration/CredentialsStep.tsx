@@ -1,4 +1,4 @@
-import React, {FC, useCallback} from 'react';
+import React, {FC, useCallback, useEffect} from 'react';
 import {Controller, useForm, useFormState} from "react-hook-form";
 import {LoginFormData, LoginFormFieldsEnum} from "../login/types";
 import {FormGroup, TextField} from "@mui/material";
@@ -6,6 +6,7 @@ import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapp
 import PasswordVisibilityIcon from "../login/PasswordVisibilityIcon";
 import {useCurrentFormValidityState} from "./useCurrentFormValidityState";
 import {StepProps} from "./models";
+import {useValidationRules} from "../../../common/hooks/useValidationRules";
 
 const defaultFormValues = {
   email: '',
@@ -19,14 +20,19 @@ const CredentialsStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
     formState: {isValid, errors},
     getValues,
     setValue,
-    watch
-  } = useForm<LoginFormData>({defaultValues: defaultFormValues, mode: 'onChange'});
+    watch,
+  } = useForm<LoginFormData>({defaultValues: defaultFormValues, mode: 'all'});
+  const {emailRules, passwordRules} = useValidationRules()
 
   useCurrentFormValidityState(isValid, setIsCurrentFormValid)
 
   const toggleShowPassword = useCallback(() => {
     setValue('showPassword', !getValues().showPassword)
   }, [])
+
+  useEffect(() => {
+    sessionStorage.setItem('credentials', JSON.stringify(watch()))
+  }, [watch()])
 
   return (
     <form>
@@ -35,10 +41,7 @@ const CredentialsStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
         <Controller
           name="email"
           control={control}
-          rules={{
-            required:{value: true, message: 'This field is required'},
-            pattern: {value: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, message: 'It is not email'}
-          }}
+          rules={emailRules}
           render={({field}) => (
             <FormFieldWrapper>
               <TextField
@@ -59,11 +62,7 @@ const CredentialsStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
         <Controller
           name="password"
           control={control}
-          rules={{
-            required: {value: true, message: 'This field is required'},
-            minLength: {value: 6, message: 'Min number is 6'},
-            maxLength: {value: 12, message: 'Max number is 12'}
-          }}
+          rules={passwordRules}
           render={({field}) => (
             <FormFieldWrapper>
               <TextField
