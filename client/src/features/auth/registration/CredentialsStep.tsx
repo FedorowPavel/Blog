@@ -1,45 +1,41 @@
-import React, {FC, useCallback} from 'react';
-import {
-  Button,
-  FormGroup,
-  TextField
-} from "@mui/material";
-import {Controller, SubmitHandler, useForm} from "react-hook-form";
+import React, {FC} from 'react';
+import {Controller, useForm} from "react-hook-form";
+import {FormGroup, TextField} from "@mui/material";
 import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapper";
-import PasswordVisibilityIcon from "./PasswordVisibilityIcon";
-import {CredentialsFormData, RegistrationFormFieldsEnum} from "../registration/types";
+import PasswordVisibilityIcon from "../login/PasswordVisibilityIcon";
+import {useCurrentFormValidityState} from "./useCurrentFormValidityState";
+import {getDataFromSessionStorage, getValidationRules} from "../../../common/utils/utils";
+import {useRegistrationFormDataChange} from "./useRegistrationFormDataChange";
+import {CredentialsFormData, RegistrationFormFieldsEnum, RegistrationStorageKeys, StepProps} from "./types";
 
+const defaultValues = {
+  email: '',
+  password: '',
+  showPassword: false
+}
 
-const LoginForm: FC = () => {
-  const {control, handleSubmit, formState: {isValid, errors}, getValues, setValue, watch} = useForm<CredentialsFormData>({
-      defaultValues: {
-        email: '',
-        password: '',
-        showPassword: false
-      },
-      mode: 'all'
-    }
-  );
+const CredentialsStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
+  const { control, formState: {isValid, errors}, getValues, setValue, watch} = useForm<CredentialsFormData>({
+    defaultValues: getDataFromSessionStorage(RegistrationStorageKeys.CREDENTIALS) || defaultValues,
+    mode: 'all'
+  });
+  const {emailRules, passwordRules} = getValidationRules()
 
-  const onSubmit: SubmitHandler<CredentialsFormData> = data => {
-    console.log(data)
-  };
+  useCurrentFormValidityState(isValid, setIsCurrentFormValid)
+  useRegistrationFormDataChange(watch, RegistrationStorageKeys.CREDENTIALS)
 
-  const toggleShowPassword = useCallback(() => {
+  const toggleShowPassword = () => {
     setValue('showPassword', !getValues().showPassword)
-  }, [])
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form>
       <FormGroup sx={{ display: "flex",  flexDirection: "column"}}>
 
         <Controller
           name="email"
           control={control}
-          rules={{
-            required:{value: true, message: 'This field is required'},
-            pattern: {value: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, message: 'It is not email'}
-          }}
+          rules={emailRules}
           render={({field}) => (
             <FormFieldWrapper>
               <TextField
@@ -51,7 +47,8 @@ const LoginForm: FC = () => {
                 id='email'
                 type='email'
                 label='email'
-                autoComplete='off'/>
+                autoComplete='new-password'
+              />
             </FormFieldWrapper>
           )}
         />
@@ -59,11 +56,7 @@ const LoginForm: FC = () => {
         <Controller
           name="password"
           control={control}
-          rules={{
-            required: {value: true, message: 'This field is required'},
-            minLength: {value: 6, message: 'Min number is 6'},
-            maxLength: {value: 12, message: 'Max number is 12'}
-          }}
+          rules={passwordRules}
           render={({field}) => (
             <FormFieldWrapper>
               <TextField
@@ -81,10 +74,12 @@ const LoginForm: FC = () => {
             </FormFieldWrapper>
           )}
         />
-        <Button type="submit" disabled={!isValid} variant="contained" sx={{marginBottom: 3}}>Login</Button>
       </FormGroup>
+      {/*<pre>{JSON.stringify(watch(), null ,2)}</pre>*/}
+      {/*<pre>{JSON.stringify(isValid, null ,2)}</pre>*/}
     </form>
   );
-}
 
-export default LoginForm;
+};
+
+export default CredentialsStep;
