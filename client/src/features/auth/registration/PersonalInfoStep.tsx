@@ -1,33 +1,29 @@
-import React, {FC, useCallback} from 'react';
-import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {LoginFormData, LoginFormFieldsEnum, PersonalInfoFormData} from "../login/types";
-import {Button, FormGroup, MenuItem, Select, TextField} from "@mui/material";
+import React, {FC} from 'react';
+import {Controller, useForm} from "react-hook-form";
+import { FormGroup, TextField} from "@mui/material";
 import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapper";
-import {StepProps} from "./models";
 import {useCurrentFormValidityState} from "./useCurrentFormValidityState";
+import {getDataFromSessionStorage, getValidationRules} from "../../../common/utils/utils";
+import {useRegistrationFormDataChange} from "./useRegistrationFormDataChange";
+import {PersonalInfoFormData, RegistrationFormFieldsEnum, RegistrationStorageKeys, StepProps} from "./types";
+
+const defaultValues = {
+  phone: '',
+  nickname: ''
+}
 
 const PersonalInfoStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
-  const {control, handleSubmit, formState: {isValid, errors}, getValues, setValue, watch} = useForm<PersonalInfoFormData>({
-      defaultValues: {
-        phone: '',
-        gender: '',
-        nationality: ''
-      },
-      mode: 'all'
-    }
-  );
+  const {control, formState: {isValid, errors}, watch} = useForm<PersonalInfoFormData>({
+    defaultValues: getDataFromSessionStorage(RegistrationStorageKeys.PERSONAL_INFO) || defaultValues,
+    mode: 'all'
+  });
+  const {requiredRule} = getValidationRules()
 
   useCurrentFormValidityState(isValid, setIsCurrentFormValid)
-
-  const onSubmit: SubmitHandler<PersonalInfoFormData> = data => {
-    console.log(data)
-  };
-
-  const toggleShowPassword = useCallback(() => {
-  }, [])
+  useRegistrationFormDataChange(watch, RegistrationStorageKeys.PERSONAL_INFO)
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form>
       <FormGroup sx={{ display: "flex",  flexDirection: "column"}}>
 
         <Controller
@@ -49,17 +45,20 @@ const PersonalInfoStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
         />
 
         <Controller
-          name="nationality"
+          name="nickname"
           control={control}
+          rules={requiredRule}
           render={({field}) => (
             <FormFieldWrapper>
               <TextField
                 {...field}
                 fullWidth
                 autoFocus
-                id='nationality'
+                error={!!errors[RegistrationFormFieldsEnum.NICKNAME]}
+                helperText={errors[RegistrationFormFieldsEnum.NICKNAME]?.message}
+                id='nickname'
                 type='text'
-                label='Nationality'
+                label='Nickname'
                 autoComplete='off'
               />
             </FormFieldWrapper>

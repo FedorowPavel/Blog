@@ -1,38 +1,32 @@
-import React, {FC, useCallback, useEffect} from 'react';
-import {Controller, useForm, useFormState} from "react-hook-form";
-import {LoginFormData, LoginFormFieldsEnum} from "../login/types";
+import React, {FC} from 'react';
+import {Controller, useForm} from "react-hook-form";
 import {FormGroup, TextField} from "@mui/material";
 import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapper";
 import PasswordVisibilityIcon from "../login/PasswordVisibilityIcon";
 import {useCurrentFormValidityState} from "./useCurrentFormValidityState";
-import {StepProps} from "./models";
-import {useValidationRules} from "../../../common/hooks/useValidationRules";
+import {getDataFromSessionStorage, getValidationRules} from "../../../common/utils/utils";
+import {useRegistrationFormDataChange} from "./useRegistrationFormDataChange";
+import {CredentialsFormData, RegistrationFormFieldsEnum, RegistrationStorageKeys, StepProps} from "./types";
 
-const defaultFormValues = {
+const defaultValues = {
   email: '',
   password: '',
   showPassword: false
 }
 
 const CredentialsStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
-  const {
-    control,
-    formState: {isValid, errors},
-    getValues,
-    setValue,
-    watch,
-  } = useForm<LoginFormData>({defaultValues: defaultFormValues, mode: 'all'});
-  const {emailRules, passwordRules} = useValidationRules()
+  const { control, formState: {isValid, errors}, getValues, setValue, watch} = useForm<CredentialsFormData>({
+    defaultValues: getDataFromSessionStorage(RegistrationStorageKeys.CREDENTIALS) || defaultValues,
+    mode: 'all'
+  });
+  const {emailRules, passwordRules} = getValidationRules()
 
   useCurrentFormValidityState(isValid, setIsCurrentFormValid)
+  useRegistrationFormDataChange(watch, RegistrationStorageKeys.CREDENTIALS)
 
-  const toggleShowPassword = useCallback(() => {
+  const toggleShowPassword = () => {
     setValue('showPassword', !getValues().showPassword)
-  }, [])
-
-  useEffect(() => {
-    sessionStorage.setItem('credentials', JSON.stringify(watch()))
-  }, [watch()])
+  }
 
   return (
     <form>
@@ -47,8 +41,8 @@ const CredentialsStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
               <TextField
                 {...field}
                 fullWidth
-                error={!!errors[LoginFormFieldsEnum.EMAIL]}
-                helperText={errors[LoginFormFieldsEnum.EMAIL]?.message}
+                error={!!errors[RegistrationFormFieldsEnum.EMAIL]}
+                helperText={errors[RegistrationFormFieldsEnum.EMAIL]?.message}
                 autoFocus
                 id='email'
                 type='email'
@@ -71,8 +65,8 @@ const CredentialsStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
                 type={getValues().showPassword ? 'text' : 'password'}
                 label="Password"
                 autoComplete='off'
-                error={!!errors[LoginFormFieldsEnum.PASSWORD]}
-                helperText={errors[LoginFormFieldsEnum.PASSWORD]?.message}
+                error={!!errors[RegistrationFormFieldsEnum.PASSWORD]}
+                helperText={errors[RegistrationFormFieldsEnum.PASSWORD]?.message}
                 InputProps={{
                   endAdornment: <PasswordVisibilityIcon watch={watch} toggleShowPassword={toggleShowPassword}/>
                 }}

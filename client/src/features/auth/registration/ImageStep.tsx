@@ -1,33 +1,41 @@
-import React, {FC, useCallback} from 'react';
-import {SubmitHandler, useForm} from "react-hook-form";
-import {LoginFormData} from "../login/types";
-import {StepProps} from "./models";
-import {useCurrentFormValidityState} from "./useCurrentFormValidityState";
+import React, {FC, useEffect, useState} from 'react';
+import {Button} from "@mui/material";
+import ImagePreview from "./ImagePreview";
+import {StepProps} from "./types";
 
-const ImageStep: FC<StepProps> = ({setIsCurrentFormValid}) => {
-  const {control, handleSubmit, formState: {isValid, errors}, getValues, setValue, watch} = useForm<any>({
-      defaultValues: {
-      },
-      mode: 'all'
+const ImageStep: FC<StepProps> = ({setIsCurrentFormValid, setImage}) => {
+  const [file, setFile] = useState<string>('')
+  const [previewUrl, setPreviewUrl] = useState<string>('')
+
+
+  const handleInputChange = (e: FileList) => {
+    if (setImage) {
+      setImage(e)
     }
-  );
+    setFile(e[0].name)
+    setPreviewUrl(URL.createObjectURL(e[0]))
+  }
 
-  useCurrentFormValidityState(isValid, setIsCurrentFormValid)
-
-
-  const onSubmit: SubmitHandler<LoginFormData> = data => {
-    console.log(data)
-  };
-
-  const toggleShowPassword = useCallback(() => {
-    setValue('showPassword', !getValues().showPassword)
-  }, [])
+  useEffect(() => {
+    setIsCurrentFormValid(!!file)
+  }, [file])
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}></form>
+    <>
+      <ImagePreview previewUrl={previewUrl}/>
+      <Button
+        variant="contained"
+        component="label"
+      >
+        Choose file
+        <input
+          type="file"
+          hidden
+          onChange={(e) => handleInputChange(e.target.files as FileList)}
+        />
+      </Button>
+    </>
   );
-
-
 };
 
 export default ImageStep;

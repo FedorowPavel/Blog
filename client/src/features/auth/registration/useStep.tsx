@@ -2,13 +2,13 @@ import {useLocation, useNavigate} from "react-router-dom";
 import CredentialsStep from "./CredentialsStep";
 import PersonalInfoStep from "./PersonalInfoStep";
 import ImageStep from "./ImageStep";
-import {RegistrationStep, StepTitlesEnum} from "./models";
 import StepWrapper from "./StepWrapper";
+import {RegistrationStep, StepTitlesEnum} from "./types";
 
 const steps: RegistrationStep[] = [
-  {title: StepTitlesEnum.CREDENTIALS, component: <CredentialsStep setIsCurrentFormValid={()=>{}}/>},
-  {title: StepTitlesEnum.PERSONAL_INFO, component: <PersonalInfoStep setIsCurrentFormValid={()=>{}}/>},
-  {title: StepTitlesEnum.USER_IMAGE, component: <ImageStep setIsCurrentFormValid={()=>{}}/>},
+  {title: StepTitlesEnum.CREDENTIALS, component: <CredentialsStep setIsCurrentFormValid={() => {}}/>},
+  {title: StepTitlesEnum.PERSONAL_INFO, component: <PersonalInfoStep setIsCurrentFormValid={() => {}}/>},
+  {title: StepTitlesEnum.USER_IMAGE, component: <ImageStep setIsCurrentFormValid={() => {}}/>},
 ]
 
 export function useStep() {

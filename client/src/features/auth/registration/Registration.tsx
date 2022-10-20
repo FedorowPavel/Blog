@@ -2,6 +2,7 @@ import React from 'react';
 import {Box} from "@mui/material";
 import {useStep} from "./useStep";
 import HeaderStepper from "./HeaderStepper";
+import StepWrapper from "./StepWrapper";
 
 const Registration = () => {
   const {currentStepComponent} = useStep()

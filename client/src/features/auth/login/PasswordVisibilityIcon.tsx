@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
-import {LoginFormData} from "./types";
 import {IconButton, InputAdornment} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {CredentialsFormData} from "../registration/types";
 
 interface PasswordVisibilityIconProps {
-  watch: () => LoginFormData,
+  watch: () => CredentialsFormData,
   toggleShowPassword: () => void
 }
 

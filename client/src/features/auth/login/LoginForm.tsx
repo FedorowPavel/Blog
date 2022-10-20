@@ -5,13 +5,13 @@ import {
   TextField
 } from "@mui/material";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {LoginFormData, LoginFormFieldsEnum} from "./types";
 import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapper";
 import PasswordVisibilityIcon from "./PasswordVisibilityIcon";
+import {CredentialsFormData, RegistrationFormFieldsEnum} from "../registration/types";
 
 
 const LoginForm: FC = () => {
-  const {control, handleSubmit, formState: {isValid, errors}, getValues, setValue, watch} = useForm<LoginFormData>({
+  const {control, handleSubmit, formState: {isValid, errors}, getValues, setValue, watch} = useForm<CredentialsFormData>({
       defaultValues: {
         email: '',
         password: '',
@@ -21,7 +21,7 @@ const LoginForm: FC = () => {
     }
   );
 
-  const onSubmit: SubmitHandler<LoginFormData> = data => {
+  const onSubmit: SubmitHandler<CredentialsFormData> = data => {
     console.log(data)
   };
 
@@ -45,14 +45,13 @@ const LoginForm: FC = () => {
               <TextField
                 {...field}
                 fullWidth
-                error={!!errors[LoginFormFieldsEnum.EMAIL]}
-                helperText={errors[LoginFormFieldsEnum.EMAIL]?.message}
+                error={!!errors[RegistrationFormFieldsEnum.EMAIL]}
+                helperText={errors[RegistrationFormFieldsEnum.EMAIL]?.message}
                 autoFocus
                 id='email'
                 type='email'
                 label='email'
-                autoComplete='off'
-              />
+                autoComplete='off'/>
             </FormFieldWrapper>
           )}
         />
@@ -73,8 +72,8 @@ const LoginForm: FC = () => {
                 type={getValues().showPassword ? 'text' : 'password'}
                 label="Password"
                 autoComplete='off'
-                error={!!errors[LoginFormFieldsEnum.PASSWORD]}
-                helperText={errors[LoginFormFieldsEnum.PASSWORD]?.message}
+                error={!!errors[RegistrationFormFieldsEnum.PASSWORD]}
+                helperText={errors[RegistrationFormFieldsEnum.PASSWORD]?.message}
                 InputProps={{
                   endAdornment: <PasswordVisibilityIcon watch={watch} toggleShowPassword={toggleShowPassword}/>
                 }}
@@ -84,15 +83,6 @@ const LoginForm: FC = () => {
         />
         <Button type="submit" disabled={!isValid} variant="contained" sx={{marginBottom: 3}}>Login</Button>
       </FormGroup>
-      {/*<pre>*/}
-      {/*  {JSON.stringify(watch(), null, 2)}*/}
-      {/*</pre>*/}
-      {/*<pre>*/}
-      {/*  {JSON.stringify(isValid, null, 2)}*/}
-      {/*</pre>*/}
-      {/*<pre>*/}
-      {/*  {JSON.stringify(errors, null, 2)}*/}
-      {/*</pre>*/}
     </form>
   );
 }
