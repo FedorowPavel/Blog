@@ -8,6 +8,8 @@ async function start() {
   const PORT = process.env.PORT || 5000
   const app = await NestFactory.create(AppModule)
 
+  app.enableCors()
+
   const configSwagger = new DocumentBuilder()
     .setTitle('Advanced backend')
     .setDescription('Documentation of REST API')

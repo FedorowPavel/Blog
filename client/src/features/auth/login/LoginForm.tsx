@@ -1,4 +1,4 @@
-import React, {FC, useCallback} from 'react';
+import React, {FC, useCallback, useEffect} from 'react';
 import {
   Button,
   FormGroup,
@@ -8,6 +8,8 @@ import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapper";
 import PasswordVisibilityIcon from "./PasswordVisibilityIcon";
 import {CredentialsFormData, RegistrationFormFieldsEnum} from "../registration/types";
+import {authApi} from "../../../common/store/authApi/AuthApi";
+import {useNavigate} from "react-router-dom";
 
 
 const LoginForm: FC = () => {
@@ -20,10 +22,18 @@ const LoginForm: FC = () => {
       mode: 'all'
     }
   );
+  const [loginUser, {data: user}] = authApi.useLoginUserMutation()
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<CredentialsFormData> = data => {
-    console.log(data)
+  const onSubmit: SubmitHandler<CredentialsFormData> = loginData => {
+    loginUser(loginData)
   };
+
+  useEffect(() => {
+    if(user) {
+      navigate('/')
+    }
+  }, [user])
 
   const toggleShowPassword = useCallback(() => {
     setValue('showPassword', !getValues().showPassword)
