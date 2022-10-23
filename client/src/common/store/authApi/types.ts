@@ -9,6 +9,7 @@ export interface User {
   posts: Post[]
   nickname: string,
   phone: string,
+  image: string,
 }
 
 export interface Role {

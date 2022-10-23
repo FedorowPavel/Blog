@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {User} from "./types";
 import {CredentialsFormData, RegistrationData} from "../../../features/auth/registration/types";
-import {setToken, setUser} from "../reducers/AuthSlice";
+import {setUser} from "../reducers/AuthSlice";
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -22,13 +22,12 @@ export const authApi = createApi({
         try {
           const {data} = await queryFulfilled;
           dispatch(setUser(data.user));
-          dispatch(setToken(data.token));
         } catch (error) {
           throw new Error('login error')
         }
       },
     }),
-    registerUser: build.mutation<{ token: string, user: User }, FormData>({
+    registerUser: build.mutation<{ user: User }, FormData>({
       query(data) {
         return {
           url: 'registration',
@@ -40,7 +39,6 @@ export const authApi = createApi({
         try {
           const {data} = await queryFulfilled;
           dispatch(setUser(data.user));
-          dispatch(setToken(data.token));
         } catch (error) {
           throw new Error('registration error')
         }
