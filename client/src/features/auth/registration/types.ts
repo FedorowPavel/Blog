@@ -12,7 +12,7 @@ export enum StepTitlesEnum {
 
 export type StepProps = {
   setIsCurrentFormValid: (state: boolean) => void,
-  setImage?: (state: FileList) => void
+  setImage?: (state: File) => void
 }
 
 export enum RegistrationStorageKeys {
@@ -34,7 +34,7 @@ export interface CredentialsFormData {
 }
 
 export interface RegistrationData extends Omit<CredentialsFormData, 'showPassword'>, PersonalInfoFormData {
-  image: FileList
+  image: File
 }
 
 export enum RegistrationFormFieldsEnum {
