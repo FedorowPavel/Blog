@@ -1,10 +1,10 @@
-import {Body, Controller, Post, UploadedFile, UseInterceptors} from '@nestjs/common';
+import {Body, Controller, Post, Res, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 import {LoginUserDto} from "../users/dto/login-user.dto";
 import {AuthService} from "./auth.service";
 import {RegistrationUserDto} from "../users/dto/registration-user.dto";
 import {FileInterceptor} from "@nestjs/platform-express";
-
+import {Response} from "express";
 
 @ApiTags('Authorization')
 @Controller('auth')
@@ -19,8 +19,12 @@ export class AuthController {
 
   @Post('/registration')
   @UseInterceptors(FileInterceptor('image'))
-  registration(@Body() userDto: RegistrationUserDto, @UploadedFile() image){
-    return this.authService.registration(userDto, image)
+  registration(
+    @Body() userDto: RegistrationUserDto,
+    @UploadedFile() image,
+    @Res({ passthrough: true }) response: Response
+  ){
+    return this.authService.registration(userDto, image, response)
   }
 
 }

@@ -7,6 +7,9 @@ import {Post} from "../posts/posts.model";
 interface UserCreationAttrs {
   email: string,
   password: string,
+  phone: string,
+  nickname: string,
+  image: string,
 }
 
 @Table({tableName: 'users'})
@@ -18,6 +21,18 @@ export class User extends Model<User, UserCreationAttrs>{
   @ApiProperty({example: 'user@mail.com', description: 'unique email'})
   @Column({type: DataType.STRING, unique: true, allowNull: false})
   email: string;
+
+  @ApiProperty({example: '+375291112233', description: 'phone number'})
+  @Column({type: DataType.STRING, unique: false, allowNull: true})
+  phone: string;
+
+  @ApiProperty({example: 'Jhon', description: 'name to show to other users'})
+  @Column({type: DataType.STRING, unique: false, allowNull: true})
+  nickname: string;
+
+  @ApiProperty({example: 'image', description: 'avatar'})
+  @Column({type: DataType.STRING, unique: false, allowNull: true})
+  image: string;
 
   @ApiProperty({example: '1234', description: 'password'})
   @Column({type: DataType.STRING, allowNull: false})

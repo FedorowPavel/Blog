@@ -12,7 +12,7 @@ export function getRegistrationData(file: File): FormData {
   const formData =  new FormData()
   formData.append('email', data.email)
   formData.append('password', data.password)
-  formData.append('image', data.image)
+  formData.append('image', file)
   formData.append('phone', data.phone)
   formData.append('nickname', data.nickname)
   return formData

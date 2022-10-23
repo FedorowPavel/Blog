@@ -1,17 +1,20 @@
-import {Body, HttpException, HttpStatus, Injectable, Post, UnauthorizedException} from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable, UnauthorizedException} from '@nestjs/common';
 import {LoginUserDto} from "../users/dto/login-user.dto";
 import {UsersService} from "../users/users.service";
 import {JwtService} from "@nestjs/jwt";
 import * as bcrypt from "bcryptjs"
 import {User} from "../users/users.model";
 import {RegistrationUserDto} from "../users/dto/registration-user.dto";
+import {Response} from "express";
+import {FilesService} from "../files/files.service";
 
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UsersService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private filesService: FilesService
     ) {}
 
   async login(userDto: LoginUserDto){
@@ -20,15 +23,21 @@ export class AuthService {
     return {...token, user}
   }
 
-  async registration(userDto: RegistrationUserDto, image: any){
+  async registration(userDto: RegistrationUserDto, image: File, response: Response){
     const candidate = await this.userService.getUserByEmail(userDto.email)
     if(candidate) {
       throw new HttpException('user exists', HttpStatus.BAD_REQUEST)
     }
     const hashPassword = await bcrypt.hash(userDto.password, 5);
-    const user = await this.userService.createUser({...userDto, password: hashPassword})
+    const imageName = await this.filesService.createFile(image)
+    const user = await this.userService.createUser({...userDto, image: imageName, password: hashPassword})
     const token  = await this.generateToken(user)
-    return {...token, user}
+    response.cookie(
+      'token',
+      token.token,
+      {
+        httpOnly: true,
+      }).send({user})
   }
 
   private async generateToken(user: User) {
