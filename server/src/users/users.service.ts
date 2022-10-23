@@ -1,10 +1,10 @@
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {User} from "./users.model";
 import {InjectModel} from "@nestjs/sequelize";
-import {CreateUserDto} from "./dto/create-user.dto";
 import {RolesService} from "../roles/roles.service";
 import {AddRoleDto} from "./dto/add-role.dto";
 import {BanUserDto} from "./dto/ban-user.dto";
+import {RegistrationUserDto} from "./dto/registration-user.dto";
 
 @Injectable()
 export class UsersService {
@@ -14,7 +14,7 @@ export class UsersService {
     private roleService: RolesService
   ) {}
 
-  async createUser(dto: CreateUserDto) {
+  async createUser(dto: RegistrationUserDto) {
     const user = await this.userRepository.create(dto)
     const role = await this.roleService.getRoleByValue("USER")
     await user.$set('roles', [role.id])

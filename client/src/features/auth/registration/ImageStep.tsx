@@ -4,21 +4,21 @@ import ImagePreview from "./ImagePreview";
 import {StepProps} from "./types";
 
 const ImageStep: FC<StepProps> = ({setIsCurrentFormValid, setImage}) => {
-  const [file, setFile] = useState<string>('')
+  const [fileName, setFileName] = useState<string>('')
   const [previewUrl, setPreviewUrl] = useState<string>('')
 
 
   const handleInputChange = (e: FileList) => {
     if (setImage) {
-      setImage(e)
+      setImage(e[0])
     }
-    setFile(e[0].name)
+    setFileName(e[0].name)
     setPreviewUrl(URL.createObjectURL(e[0]))
   }
 
   useEffect(() => {
-    setIsCurrentFormValid(!!file)
-  }, [file])
+    setIsCurrentFormValid(!!fileName)
+  }, [fileName])
 
   return (
     <>

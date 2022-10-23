@@ -1,8 +1,10 @@
-import React, {cloneElement, createContext, FC, ReactNode, useContext, useEffect, useState} from 'react';
+import React, {cloneElement, FC, useEffect, useState} from 'react';
 import Title from "../../../common/components/ui/Title";
 import {Box, Button, Card} from "@mui/material";
 import {useStep} from "./useStep";
 import {getRegistrationData} from "./utils";
+import {authApi} from "../../../common/store/authApi/AuthApi";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
   title: string,
@@ -12,12 +14,21 @@ type Props = {
 const StepWrapper: FC<Props> = ({title, children}) => {
   const {nextStep, prevStep, prevIsDisabled, isLastStep} = useStep()
   const [isCurrentFormValid, setIsCurrentFormValid] = useState<boolean>()
-  const [image, setImage] = useState<FileList>()
+  const [image, setImage] = useState<File>()
+  const [registerUser, {data: user}] = authApi.useRegisterUserMutation()
+  const navigate = useNavigate();
+
 
   const registerHandler = () => {
-    const testData = getRegistrationData(image as FileList)
-    console.log({testData})
+    const registrationData = getRegistrationData(image as File)
+    registerUser(registrationData)
   }
+
+  useEffect(() => {
+    if(user) {
+      navigate('/')
+    }
+  }, [user])
 
   return (
       <Card sx={{
