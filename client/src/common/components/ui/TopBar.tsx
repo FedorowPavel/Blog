@@ -12,10 +12,9 @@ import {Link, useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
-import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {useAppSelector} from "../../store/hooks";
 import {BACKEND_BASE_URL} from "../../constants";
 import {logout} from "../../store/reducers/AuthSlice";
-import {deleteCookie} from "../../utils/utils";
 import {authApi} from "../../store/authApi/AuthApi";
 
 const notAuthButtons = ['Login', 'Registration'];
@@ -25,7 +24,6 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const TopBar = () => {
   const {user} = useAppSelector(state => state.authReducer)
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
   const [logout] = authApi.useLogoutMutation()
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
