@@ -7,6 +7,7 @@ import {User} from "../users/users.model";
 import {RegistrationUserDto} from "../users/dto/registration-user.dto";
 import {Response} from "express";
 import {FilesService} from "../files/files.service";
+import {Request} from "express";
 
 
 @Injectable()
@@ -26,6 +27,23 @@ export class AuthService {
       {
         httpOnly: true,
       }).send({user})
+  }
+
+  async loginWithCookies(userDto: LoginUserDto, response: Response, request: Request){
+    const token = request.cookies.token
+    if(!request.cookies.token) {
+      response.send(null).status(200)
+    }
+    const user = this.jwtService.verify(token);
+    if(user) {
+      response.cookie(
+        'token',
+        token,
+        {
+          httpOnly: true,
+        }).send(user)
+    }
+
   }
 
   async logout(userDto: LoginUserDto, response: Response){
@@ -50,7 +68,16 @@ export class AuthService {
   }
 
   private async generateToken(user: User) {
-    const payload = {email: user.email, id: user.id, roles: user.roles}
+    const payload = {
+      email: user.email,
+      id: user.id,
+      roles: user.roles,
+      phone: user.phone,
+      nickname: user.nickname,
+      image: user.image,
+      banned: user.banned,
+      banReason: user.banReason
+    }
     return {
       token: this.jwtService.sign(payload)
     }

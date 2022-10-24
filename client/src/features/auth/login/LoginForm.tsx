@@ -27,13 +27,14 @@ const LoginForm: FC = () => {
 
   const onSubmit: SubmitHandler<CredentialsFormData> = loginData => {
     loginUser(loginData)
+    navigate('/main')
   };
 
-  useEffect(() => {
-    if(user) {
-      navigate('/')
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if(user) {
+  //     navigate('/')
+  //   }
+  // }, [user])
 
   const toggleShowPassword = useCallback(() => {
     setValue('showPassword', !getValues().showPassword)

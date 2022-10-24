@@ -47,6 +47,7 @@ const TopBar = () => {
 
   const handleCloseNavMenu = (route = '') => {
     if(route === 'logout') {
+      navigate('/login')
       logout(null)
       // deleteCookie('token')
       // dispatch(logout())

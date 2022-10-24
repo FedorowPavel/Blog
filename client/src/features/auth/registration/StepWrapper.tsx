@@ -26,7 +26,7 @@ const StepWrapper: FC<Props> = ({title, children}) => {
 
   useEffect(() => {
     if(user) {
-      navigate('/')
+      navigate('/main')
     }
   }, [user])
 

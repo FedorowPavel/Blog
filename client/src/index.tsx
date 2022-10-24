@@ -5,6 +5,7 @@ import App from './App';
 import {BlogThemeProvider} from "./common/components/hoc/ThemeProvider";
 import {Provider} from "react-redux";
 import {setupStore} from "./common/store";
+import {BrowserRouter} from "react-router-dom";
 
 const store = setupStore()
 
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <BlogThemeProvider>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </BlogThemeProvider>
   </Provider>
 

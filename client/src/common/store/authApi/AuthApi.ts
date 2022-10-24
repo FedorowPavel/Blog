@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {User} from "./types";
-import {CredentialsFormData, RegistrationData} from "../../../features/auth/registration/types";
+import {CredentialsFormData} from "../../../features/auth/registration/types";
 import {setUser} from "../reducers/AuthSlice";
+import {useNavigate} from "react-router-dom";
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -24,6 +25,22 @@ export const authApi = createApi({
           dispatch(setUser(data.user));
         } catch (error) {
           throw new Error('login error')
+        }
+      },
+    }),
+    loginUserWithCookies: build.mutation<User, null>({
+      query() {
+        return {
+          url: 'loginWithCookies',
+          method: 'POST',
+        }
+      },
+      async onQueryStarted(args, {dispatch, queryFulfilled}) {
+        try {
+          const {data} = await queryFulfilled;
+          dispatch(setUser(data));
+        } catch (error) {
+          throw new Error('login with cookies error')
         }
       },
     }),

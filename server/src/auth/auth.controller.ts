@@ -1,10 +1,11 @@
-import {Body, Controller, Post, Res, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
+import {Body, Controller, Post, Req, Res, UploadedFile, UseInterceptors} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 import {LoginUserDto} from "../users/dto/login-user.dto";
 import {AuthService} from "./auth.service";
 import {RegistrationUserDto} from "../users/dto/registration-user.dto";
 import {FileInterceptor} from "@nestjs/platform-express";
 import {Response} from "express";
+import {Request} from "express";
 
 @ApiTags('Authorization')
 @Controller('auth')
@@ -18,6 +19,15 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response
   ){
     return this.authService.login(userDto, response)
+  }
+
+  @Post('/loginWithCookies')
+  loginWithCookies(
+    @Body() userDto: LoginUserDto,
+    @Res({ passthrough: true }) response: Response,
+    @Req() request: Request
+  ){
+    return this.authService.loginWithCookies(userDto, response, request)
   }
 
   @Post('/logout')

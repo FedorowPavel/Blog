@@ -1,23 +1,13 @@
 import * as React from 'react';
-import {Outlet, useNavigate} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import TopBar from "../ui/TopBar";
 import {Box} from "@mui/material";
 import {useTheme} from "@mui/styles";
 import {BlogTheme} from "@mui/material/styles";
-import {useEffect} from "react";
-import {useAppSelector} from "../../store/hooks";
 
 
 const Layout = () => {
   const theme = useTheme<BlogTheme>()
-  const navigate = useNavigate();
-  const {user} = useAppSelector(state => state.authReducer)
-
-  useEffect(() => {
-    if(!user) {
-      navigate('/login')
-    }
-  }, [])
 
   return (
     <Box

@@ -10,8 +10,9 @@ export const ProtectedRoute = (
   { user, redirectPath}: ProtectedRouteProps
 ) => {
   const navigate = useNavigate()
+
   if (!user) {
-    navigate(redirectPath, {replace: true})
+    navigate(redirectPath)
     return <></>
   }
 
