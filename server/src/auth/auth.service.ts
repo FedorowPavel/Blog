@@ -17,10 +17,19 @@ export class AuthService {
     private filesService: FilesService
     ) {}
 
-  async login(userDto: LoginUserDto){
+  async login(userDto: LoginUserDto, response: Response){
     const user = await this.validateUser(userDto)
     const token  = await this.generateToken(user)
-    return {...token, user}
+    response.cookie(
+      'token',
+      token.token,
+      {
+        httpOnly: true,
+      }).send({user})
+  }
+
+  async logout(userDto: LoginUserDto, response: Response){
+    response.clearCookie('token').send({user: null})
   }
 
   async registration(userDto: RegistrationUserDto, image: File, response: Response){

@@ -43,6 +43,22 @@ export const authApi = createApi({
           throw new Error('registration error')
         }
       },
+    }),
+    logout: build.mutation<{ user: User }, null>({
+      query() {
+        return {
+          url: 'logout',
+          method: 'POST',
+        }
+      },
+      async onQueryStarted(args, {dispatch, queryFulfilled}) {
+        try {
+          const {data} = await queryFulfilled;
+          dispatch(setUser(data.user));
+        } catch (error) {
+          throw new Error('logout error')
+        }
+      },
     })
   })
 })

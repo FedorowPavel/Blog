@@ -13,8 +13,19 @@ export class AuthController {
   }
 
   @Post('/login')
-  login(@Body() userDto: LoginUserDto){
-    return this.authService.login(userDto)
+  login(
+    @Body() userDto: LoginUserDto,
+    @Res({ passthrough: true }) response: Response
+  ){
+    return this.authService.login(userDto, response)
+  }
+
+  @Post('/logout')
+  logout(
+    @Body() userDto: LoginUserDto,
+    @Res({ passthrough: true }) response: Response
+  ){
+    return this.authService.logout(userDto, response)
   }
 
   @Post('/registration')

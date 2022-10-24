@@ -15,6 +15,8 @@ import Avatar from "@mui/material/Avatar";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {BACKEND_BASE_URL} from "../../constants";
 import {logout} from "../../store/reducers/AuthSlice";
+import {deleteCookie} from "../../utils/utils";
+import {authApi} from "../../store/authApi/AuthApi";
 
 const notAuthButtons = ['Login', 'Registration'];
 const authButtons = ['Logout'];
@@ -24,13 +26,13 @@ const TopBar = () => {
   const {user} = useAppSelector(state => state.authReducer)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const [logout] = authApi.useLogoutMutation()
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [buttons, setButtons] = useState<string[]>(notAuthButtons)
 
   useEffect(() => {
-    console.log(user)
     if(!user) {
       setButtons(notAuthButtons)
     } else {
@@ -47,7 +49,9 @@ const TopBar = () => {
 
   const handleCloseNavMenu = (route = '') => {
     if(route === 'logout') {
-      dispatch(logout())
+      logout(null)
+      // deleteCookie('token')
+      // dispatch(logout())
       return
     }
     if(route) {
