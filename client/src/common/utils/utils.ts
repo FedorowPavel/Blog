@@ -1,3 +1,5 @@
+import {registrationDataKeys} from "../../features/auth/registration/models/types";
+
 export function getValidationRules() {
   const emailRules = {
     required:{value: true, message: 'This field is required'},
@@ -16,8 +18,18 @@ export function getValidationRules() {
   return {emailRules, passwordRules, requiredRule}
 }
 
-export function setDataToSessionStorage<Data>(data: Data, key: string) {
+export function setDataToSessionStorage<Data>(data: Data, key: string): void {
   sessionStorage.setItem(key, JSON.stringify(data))
+}
+
+export function removeDataFromSessionStorage(key: string): void {
+  sessionStorage.removeItem(key)
+}
+
+export function clearStoredRegistrationData(): void {
+  registrationDataKeys.forEach(key => {
+    removeDataFromSessionStorage(key)
+  })
 }
 
 export function getDataFromSessionStorage<Data>(key: string): Data {

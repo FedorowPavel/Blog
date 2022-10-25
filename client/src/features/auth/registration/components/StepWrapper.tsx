@@ -5,6 +5,7 @@ import {useStep} from "../hooks/useStep";
 import {getRegistrationData} from "../utils/utils";
 import {authApi} from "../store/authApi/AuthApi";
 import {useNavigate} from "react-router-dom";
+import {clearStoredRegistrationData} from "../../../../common/utils/utils";
 
 type Props = {
   title: string,
@@ -28,6 +29,7 @@ const StepWrapper: FC<Props> = ({title, children}) => {
     if(user) {
       navigate('/main')
     }
+    return clearStoredRegistrationData()
   }, [user])
 
   return (

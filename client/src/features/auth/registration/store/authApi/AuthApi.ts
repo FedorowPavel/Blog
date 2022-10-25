@@ -55,6 +55,7 @@ export const authApi = createApi({
         try {
           const {data} = await queryFulfilled;
           dispatch(setUser(data.user));
+
         } catch (error) {
           throw new Error('registration error')
         }
