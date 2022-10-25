@@ -14,28 +14,31 @@ function App() {
   const [loginUserWithCookies] = authApi.useLoginUserWithCookiesMutation()
   const navigate = useNavigate()
   const location = useLocation()
+  const [isAuth, setIsAuth] = useState<boolean>(false)
 
-
-  useLayoutEffect(() => {
-    console.log('[useLayoutEffect]', user)
-    if(!user) {
-      loginUserWithCookies(null)
-    }
+  useEffect(() => {
+    loginUserWithCookies(null)
   }, [])
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log('[useEffect]', user)
-    })
+    navigate(location.pathname) //initial redirection
+    if(user) {
+      navigate(['/login', '/registration'].includes(location.pathname) ? '/main' : location.pathname) //redirection after login
+      setIsAuth(true)
+    }
   }, [user])
 
   return (
     <Routes>
       <Route path='/' element={<Layout/>}>
-        <Route path='/main' element={<Main/>}/>
+        <Route path='*' element={<Error/>}/>
+
+        <Route element={<ProtectedRoute isAuth={isAuth}/>}>
+          <Route path='/main' element={<Main/>}/>
+        </Route>
+
         <Route path='/login' element={<Login/>}/>
         <Route path='/registration' element={<Registration/>}/>
-        <Route path='*' element={<Error/>}/>
       </Route>
     </Routes>
   );

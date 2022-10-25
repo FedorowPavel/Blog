@@ -2,7 +2,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {User} from "./types";
 import {CredentialsFormData} from "../../../features/auth/registration/types";
 import {setUser} from "../reducers/AuthSlice";
-import {useNavigate} from "react-router-dom";
 
 export const authApi = createApi({
   reducerPath: 'authApi',

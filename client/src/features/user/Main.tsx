@@ -16,7 +16,7 @@ const Main = () => {
   }
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="md">
       <pre>{user ? JSON.stringify(user, null, 2) : 'no user'}</pre>
       {
         user && <Avatar sx={{ width: 200, height: 200 }} src={`${BACKEND_BASE_URL}${user?.image}`}/>
