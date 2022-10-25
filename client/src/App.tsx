@@ -22,6 +22,9 @@ function App() {
 
   useEffect(() => {
     navigate(location.pathname) //initial redirection
+  }, [])
+
+  useEffect(() => {
     if(user) {
       navigate(['/login', '/registration'].includes(location.pathname) ? '/main' : location.pathname) //redirection after login
       setIsAuth(true)
