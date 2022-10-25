@@ -6,6 +6,7 @@ import {BlogThemeProvider} from "./common/components/hoc/ThemeProvider";
 import {Provider} from "react-redux";
 import {setupStore} from "./common/store";
 import {BrowserRouter} from "react-router-dom";
+import {ToastContainer} from "react-toastify";
 
 const store = setupStore()
 
@@ -17,6 +18,7 @@ root.render(
     <BlogThemeProvider>
       <BrowserRouter>
         <App />
+        <ToastContainer />
       </BrowserRouter>
     </BlogThemeProvider>
   </Provider>

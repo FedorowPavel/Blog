@@ -9,7 +9,8 @@ import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapp
 import PasswordVisibilityIcon from "./PasswordVisibilityIcon";
 import {CredentialsFormData, RegistrationFormFieldsEnum} from "../registration/types";
 import {authApi} from "../../../common/store/authApi/AuthApi";
-import {useNavigate} from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import {useToast} from "../../../common/hooks/useToast";
 
 
 const LoginForm: FC = () => {
@@ -22,8 +23,8 @@ const LoginForm: FC = () => {
       mode: 'all'
     }
   );
-  const [loginUser, {data: user}] = authApi.useLoginUserMutation()
-  const navigate = useNavigate();
+  const [loginUser, {data: user, error}] = authApi.useLoginUserMutation()
+  useToast(error, user)
 
   const onSubmit: SubmitHandler<CredentialsFormData> = loginData => {
     loginUser(loginData)
@@ -35,6 +36,7 @@ const LoginForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+
       <FormGroup sx={{ display: "flex",  flexDirection: "column"}}>
 
         <Controller
