@@ -21,7 +21,7 @@ const notAuthButtons = ['Login', 'Registration'];
 const authButtons = ['Logout'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const TopBar = () => {
+const BlogTopBar = () => {
   const {user} = useAppSelector(state => state.authReducer)
   const navigate = useNavigate()
   const [logout] = authApi.useLogoutMutation()
@@ -200,4 +200,4 @@ const TopBar = () => {
   );
 };
 
-export default TopBar;
+export default BlogTopBar;

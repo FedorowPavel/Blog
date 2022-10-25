@@ -9,7 +9,7 @@ interface TitleProps {
   gutterBottom?: boolean,
 }
 
-const Title: FC<TitleProps> = (
+const BlogTitle: FC<TitleProps> = (
   {
     title,
     variant = 'h4',
@@ -19,6 +19,7 @@ const Title: FC<TitleProps> = (
 ) => {
   return (
     <Typography
+      textAlign={"center"}
       variant={variant}
       color={color}
       gutterBottom={gutterBottom}
@@ -29,4 +30,4 @@ const Title: FC<TitleProps> = (
   );
 };
 
-export default Title;
+export default BlogTitle;

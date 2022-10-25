@@ -1,14 +1,22 @@
 import React, {FC} from 'react';
 import {
   Box,
-  Card,
 } from "@mui/material";
 import {Link} from "react-router-dom";
 import LoginForm from './LoginForm';
-import Title from "../../../../common/components/ui/Title";
+import {authApi} from "../../registration/store/authApi/AuthApi";
+import {QueryFixedCacheKeysENUM} from "../../../../common/constants";
+import BlogFullCoveringSpinner from "../../../../common/components/ui/BlogFullCoveringSpinner";
+import BlogSimpleCard from "../../../../common/components/ui/BlogSimpleCard";
+import BlogTitle from "../../../../common/components/ui/BlogTitle";
 
 const Login: FC = () => {
-    return (
+  const [, {isLoading}] = authApi.useLoginUserMutation({
+    fixedCacheKey: QueryFixedCacheKeysENUM.LOGIN_USER,
+  })
+
+
+  return (
     <Box sx={{
       position: 'absolute',
       top: '50%',
@@ -16,16 +24,15 @@ const Login: FC = () => {
       transform: 'translate(50%, -50%)',
       display: "flex",
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+      overflow: "hidden"
     }}>
-      <Card
-        variant="outlined"
-        sx={{ display: "flex", flexDirection: "column", padding: 4}}
-      >
-        <Title title={'Login'} variant='h4'/>
+      <BlogSimpleCard>
+        <BlogTitle title={'Login'} variant='h4'/>
         <LoginForm/>
         <Link to='/registration'>Create account</Link>
-      </Card>
+        <BlogFullCoveringSpinner isLoading={isLoading}/>
+      </BlogSimpleCard>
     </Box>
   );
 };

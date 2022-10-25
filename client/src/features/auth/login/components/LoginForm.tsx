@@ -2,7 +2,7 @@ import React, {FC, useCallback, useEffect} from 'react';
 import {
   Button,
   FormGroup,
-  TextField
+  TextField, useTheme
 } from "@mui/material";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import FormFieldWrapper from "../../../../common/components/wrappers/FormFieldWrapper";
@@ -11,9 +11,12 @@ import {CredentialsFormData, RegistrationFormFieldsEnum} from "../../registratio
 import {authApi} from "../../registration/store/authApi/AuthApi";
 import 'react-toastify/dist/ReactToastify.css';
 import {useToast} from "../../../../common/hooks/useToast";
+import {GridLoader} from "react-spinners";
+import {QueryFixedCacheKeysENUM} from "../../../../common/constants";
 
 
 const LoginForm: FC = () => {
+  const theme = useTheme()
   const {control, handleSubmit, formState: {isValid, errors}, getValues, setValue, watch} = useForm<CredentialsFormData>({
       defaultValues: {
         email: '',
@@ -23,7 +26,9 @@ const LoginForm: FC = () => {
       mode: 'all'
     }
   );
-  const [loginUser, {data: user, error}] = authApi.useLoginUserMutation()
+  const [loginUser, {data: user, error}] = authApi.useLoginUserMutation({
+    fixedCacheKey: QueryFixedCacheKeysENUM.LOGIN_USER,
+  })
   useToast(error, user)
 
   const onSubmit: SubmitHandler<CredentialsFormData> = loginData => {

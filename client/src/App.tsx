@@ -8,10 +8,13 @@ import Error from "./common/components/Error";
 import {authApi} from "./features/auth/registration/store/authApi/AuthApi";
 import Registration from "./features/auth/registration";
 import Login from "./features/auth/login";
+import {QueryFixedCacheKeysENUM} from "./common/constants";
 
 function App() {
   const {user} = useAppSelector(state => state.authReducer)
-  const [loginUserWithCookies] = authApi.useLoginUserWithCookiesMutation()
+  const [loginUserWithCookies] = authApi.useLoginUserWithCookiesMutation({
+    fixedCacheKey: QueryFixedCacheKeysENUM.LOGIN_WITH_COOKIES,
+  })
   const navigate = useNavigate()
   const location = useLocation()
   const [isAuth, setIsAuth] = useState<boolean>(false)
