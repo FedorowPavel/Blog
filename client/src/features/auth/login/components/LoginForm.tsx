@@ -5,12 +5,12 @@ import {
   TextField
 } from "@mui/material";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapper";
+import FormFieldWrapper from "../../../../common/components/wrappers/FormFieldWrapper";
 import PasswordVisibilityIcon from "./PasswordVisibilityIcon";
-import {CredentialsFormData, RegistrationFormFieldsEnum} from "../registration/types";
-import {authApi} from "../../../common/store/authApi/AuthApi";
+import {CredentialsFormData, RegistrationFormFieldsEnum} from "../../registration/models/types";
+import {authApi} from "../../registration/store/authApi/AuthApi";
 import 'react-toastify/dist/ReactToastify.css';
-import {useToast} from "../../../common/hooks/useToast";
+import {useToast} from "../../../../common/hooks/useToast";
 
 
 const LoginForm: FC = () => {

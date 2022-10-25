@@ -1,9 +1,9 @@
 import React, {cloneElement, FC, useEffect, useState} from 'react';
-import Title from "../../../common/components/ui/Title";
+import Title from "../../../../common/components/ui/Title";
 import {Box, Button, Card} from "@mui/material";
-import {useStep} from "./useStep";
-import {getRegistrationData} from "./utils";
-import {authApi} from "../../../common/store/authApi/AuthApi";
+import {useStep} from "../hooks/useStep";
+import {getRegistrationData} from "../utils/utils";
+import {authApi} from "../store/authApi/AuthApi";
 import {useNavigate} from "react-router-dom";
 
 type Props = {

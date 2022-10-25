@@ -14,8 +14,8 @@ import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import {useAppSelector} from "../../store/hooks";
 import {BACKEND_BASE_URL} from "../../constants";
-import {logout} from "../../store/reducers/AuthSlice";
-import {authApi} from "../../store/authApi/AuthApi";
+import {logout} from "../../../features/auth/registration/store/reducers/AuthSlice";
+import {authApi} from "../../../features/auth/registration/store/authApi/AuthApi";
 
 const notAuthButtons = ['Login', 'Registration'];
 const authButtons = ['Logout'];

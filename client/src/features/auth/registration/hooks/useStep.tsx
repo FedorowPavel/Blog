@@ -1,9 +1,9 @@
 import {useLocation, useNavigate} from "react-router-dom";
-import CredentialsStep from "./CredentialsStep";
-import PersonalInfoStep from "./PersonalInfoStep";
-import ImageStep from "./ImageStep";
-import StepWrapper from "./StepWrapper";
-import {RegistrationStep, StepTitlesEnum} from "./types";
+import CredentialsStep from "../components/CredentialsStep";
+import PersonalInfoStep from "../components/PersonalInfoStep";
+import ImageStep from "../components/ImageStep";
+import StepWrapper from "../components/StepWrapper";
+import {RegistrationStep, StepTitlesEnum} from "../models/types";
 
 const steps: RegistrationStep[] = [
   {title: StepTitlesEnum.CREDENTIALS, component: <CredentialsStep setIsCurrentFormValid={() => {}}/>},

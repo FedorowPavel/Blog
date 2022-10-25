@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {User} from "./types";
-import {CredentialsFormData} from "../../../features/auth/registration/types";
+import {CredentialsFormData} from "../../models/types";
 import {setUser} from "../reducers/AuthSlice";
 
 export const authApi = createApi({

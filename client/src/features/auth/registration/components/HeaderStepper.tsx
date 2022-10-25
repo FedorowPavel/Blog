@@ -1,6 +1,6 @@
 import React from 'react';
 import {Step, StepLabel, Stepper} from "@mui/material";
-import {useStep} from "./useStep";
+import {useStep} from "../hooks/useStep";
 
 const HeaderStepper = () => {
   const {currentStepNumber, steps} = useStep()

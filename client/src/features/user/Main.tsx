@@ -1,6 +1,6 @@
 import React from 'react';
 import {Avatar, Container} from "@mui/material";
-import {logout} from "../../common/store/reducers/AuthSlice";
+import {logout} from "../auth/registration/store/reducers/AuthSlice";
 import {useAppDispatch, useAppSelector} from "../../common/store/hooks";
 import {useNavigate} from "react-router-dom";
 import {BACKEND_BASE_URL} from "../../common/constants";

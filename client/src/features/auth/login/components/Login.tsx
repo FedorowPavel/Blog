@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import {Link} from "react-router-dom";
 import LoginForm from './LoginForm';
-import Title from "../../../common/components/ui/Title";
+import Title from "../../../../common/components/ui/Title";
 
 const Login: FC = () => {
     return (

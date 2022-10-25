@@ -1,12 +1,12 @@
 import React, {FC} from 'react';
 import {Controller, useForm} from "react-hook-form";
 import {FormGroup, TextField} from "@mui/material";
-import FormFieldWrapper from "../../../common/components/wrappers/FormFieldWrapper";
-import PasswordVisibilityIcon from "../login/PasswordVisibilityIcon";
-import {useCurrentFormValidityState} from "./useCurrentFormValidityState";
-import {getDataFromSessionStorage, getValidationRules} from "../../../common/utils/utils";
-import {useRegistrationFormDataChange} from "./useRegistrationFormDataChange";
-import {CredentialsFormData, RegistrationFormFieldsEnum, RegistrationStorageKeys, StepProps} from "./types";
+import FormFieldWrapper from "../../../../common/components/wrappers/FormFieldWrapper";
+import PasswordVisibilityIcon from "../../login/components/PasswordVisibilityIcon";
+import {useCurrentFormValidityState} from "../hooks/useCurrentFormValidityState";
+import {getDataFromSessionStorage, getValidationRules} from "../../../../common/utils/utils";
+import {useRegistrationFormDataChange} from "../hooks/useRegistrationFormDataChange";
+import {CredentialsFormData, RegistrationFormFieldsEnum, RegistrationStorageKeys, StepProps} from "../models/types";
 
 const defaultValues = {
   email: '',

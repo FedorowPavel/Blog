@@ -1,13 +1,13 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {BrowserRouter, Routes, Route, useNavigate, useLocation} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {Routes, Route, useNavigate, useLocation} from "react-router-dom";
 import Main from "./features/user/Main";
-import Login from "./features/auth/login/Login";
-import Registration from "./features/auth/registration/Registration";
 import Layout from "./common/components/wrappers/Layout";
 import {useAppSelector} from "./common/store/hooks";
 import {ProtectedRoute} from "./common/components/hoc/ProtectedRoute";
 import Error from "./common/components/Error";
-import {authApi} from "./common/store/authApi/AuthApi";
+import {authApi} from "./features/auth/registration/store/authApi/AuthApi";
+import Registration from "./features/auth/registration";
+import Login from "./features/auth/login";
 
 function App() {
   const {user} = useAppSelector(state => state.authReducer)

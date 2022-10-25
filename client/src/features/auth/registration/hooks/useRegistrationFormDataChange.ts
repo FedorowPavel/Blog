@@ -1,6 +1,6 @@
 import {FieldValues, UseFormWatch} from "react-hook-form";
 import {useEffect} from "react";
-import {setDataToSessionStorage} from "../../../common/utils/utils";
+import {setDataToSessionStorage} from "../../../../common/utils/utils";
 
 export function useRegistrationFormDataChange<T extends FieldValues>(watch: UseFormWatch<T>, storageKey: string) {
   useEffect(() => {

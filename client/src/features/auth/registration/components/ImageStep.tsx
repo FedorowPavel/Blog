@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Button} from "@mui/material";
 import ImagePreview from "./ImagePreview";
-import {StepProps} from "./types";
+import {StepProps} from "../models/types";
 
 const ImageStep: FC<StepProps> = ({setIsCurrentFormValid, setImage}) => {
   const [fileName, setFileName] = useState<string>('')
