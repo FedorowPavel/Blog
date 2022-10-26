@@ -23,7 +23,7 @@ export default function Error() {
       <Typography variant="h6" style={{ color: 'gray' }}>
         The page you’re looking for doesn’t exist.
       </Typography>
-      <Button onClick={() => navigate(user ? '/main' : 'login')}>{user ? 'Go To Main Page' : 'Login'}</Button>
+      <Button onClick={() => navigate(user ? '/feed' : 'login')}>{user ? 'Go To Main Page' : 'Login'}</Button>
     </Box>
   );
 }

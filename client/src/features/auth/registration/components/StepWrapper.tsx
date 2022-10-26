@@ -32,7 +32,7 @@ const StepWrapper: FC<Props> = ({title, children}) => {
 
   useEffect(() => {
     if(user) {
-      navigate('/main')
+      navigate('/feed')
     }
     return clearStoredRegistrationData()
   }, [user])

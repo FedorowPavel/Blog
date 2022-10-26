@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Routes, Route, useNavigate, useLocation} from "react-router-dom";
-import Main from "./features/user/Main";
 import Layout from "./common/components/wrappers/Layout";
 import {useAppSelector} from "./common/store/hooks";
 import {ProtectedRoute} from "./common/components/hoc/ProtectedRoute";
@@ -9,6 +8,7 @@ import {authApi} from "./features/auth/registration/store/authApi/AuthApi";
 import Registration from "./features/auth/registration";
 import Login from "./features/auth/login";
 import {QueryFixedCacheKeysENUM} from "./common/constants";
+import Feed from "./features/feed";
 
 function App() {
   const {user} = useAppSelector(state => state.authReducer)
@@ -29,7 +29,7 @@ function App() {
 
   useEffect(() => {
     if(user) {
-      navigate(['/login', '/registration'].includes(location.pathname) ? '/main' : location.pathname) //redirection after login
+      navigate(['/login', '/registration'].includes(location.pathname) ? '/feed' : location.pathname) //redirection after login
       setIsAuth(true)
     }
   }, [user])
@@ -40,7 +40,7 @@ function App() {
         <Route path='*' element={<Error/>}/>
 
         <Route element={<ProtectedRoute isAuth={isAuth}/>}>
-          <Route path='/main' element={<Main/>}/>
+          <Route path='/feed' element={<Feed/>}/>
         </Route>
 
         <Route path='/login' element={<Login/>}/>
