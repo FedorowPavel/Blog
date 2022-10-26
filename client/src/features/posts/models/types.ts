@@ -1,10 +1,12 @@
+import {User} from "../../auth/registration/store/authApi/types";
+
 export interface Post {
   id: number,
   title: string,
   summary: string,
   content: string,
   image: string,
-  author: string,
+  author: User,
   comments: Comment[],
   rating: Rating
 }

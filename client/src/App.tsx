@@ -9,6 +9,8 @@ import Registration from "./features/auth/registration";
 import Login from "./features/auth/login";
 import {QueryFixedCacheKeysENUM} from "./common/constants";
 import Feed from "./features/feed";
+import SinglePost from "./features/posts/components/SinglePost";
+import Posts from "./features/posts/components/Posts";
 
 function App() {
   const {user} = useAppSelector(state => state.authReducer)
@@ -40,7 +42,10 @@ function App() {
         <Route path='*' element={<Error/>}/>
 
         <Route element={<ProtectedRoute isAuth={isAuth}/>}>
-          <Route path='/feed' element={<Feed/>}/>
+          <Route path='/feed' element={<Feed/>}>
+            <Route index element={<Posts/>}/>
+            <Route path=':id' element={<SinglePost/>}/>
+          </Route>
         </Route>
 
         <Route path='/login' element={<Login/>}/>

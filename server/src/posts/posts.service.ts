@@ -18,4 +18,14 @@ export class PostsService {
     const post = await this.postRepository.create({...dto, image: fileName})
     return post
   }
+
+  async getAllPosts() {
+    const post = await this.postRepository.findAll({include: {all: true}})
+    return post
+  }
+
+  async getSinglePosts(id: number) {
+    const post = await this.postRepository.findOne({where: {id}, include: {all: true}})
+    return post
+  }
 }

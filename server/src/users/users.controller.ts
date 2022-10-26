@@ -9,6 +9,7 @@ import {JwtAuthGuards} from "../auth/jwt-auth.guards";
 import {AddRoleDto} from "./dto/add-role.dto";
 import {BanUserDto} from "./dto/ban-user.dto";
 import {ValidationPipe} from "../pipes/validation.pipe";
+import {RegistrationUserDto} from "./dto/registration-user.dto";
 
 
 @ApiTags('Users Api')
@@ -17,13 +18,13 @@ export class UsersController {
   constructor(private userService: UsersService) {
   }
 
-  // @ApiOperation({summary: 'user creation'})
-  // @ApiResponse({status: 200, type: User})
-  // @UsePipes(ValidationPipe)
-  // @Post()
-  // create(@Body() userDto: CreateUserDto) {
-  //   return this.userService.createUser(userDto)
-  // }
+  @ApiOperation({summary: 'user creation'})
+  @ApiResponse({status: 200, type: User})
+  @UsePipes(ValidationPipe)
+  @Post()
+  create(@Body() userDto: RegistrationUserDto) {
+    return this.userService.createUser(userDto)
+  }
 
   @ApiOperation({summary: 'get all users from DB'})
   @ApiResponse({status: 200, type: [User]})

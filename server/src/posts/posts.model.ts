@@ -1,10 +1,11 @@
 import {BelongsTo, BelongsToMany, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
-import {ApiProperty} from "@nestjs/swagger";
 import {User} from "../users/users.model";
+import {UserRoles} from "../roles/user-roles.model";
 
 interface PostCreationAttrs {
   title: string,
   content: string,
+  summary: string;
   userId: number,
   image: string,
 }
@@ -18,17 +19,20 @@ export class Post extends Model<Post, PostCreationAttrs> {
   @Column({type: DataType.STRING, unique: true, allowNull: false})
   title: string;
 
+  @Column({type: DataType.STRING, unique: true, allowNull: false})
+  summary: string;
+
   @Column({type: DataType.STRING, allowNull: false})
   content: string;
 
   @Column({type: DataType.STRING})
   image: string;
 
+  // by this key we take data from User table
   @ForeignKey(() => User)
   @Column({type: DataType.INTEGER})
   userId: number
 
   @BelongsTo(() => User)
   author: User;
-
 }
