@@ -8,7 +8,9 @@ export interface Post {
   image: string,
   author: User,
   comments: Comment[],
-  rating: Rating
+  rating: Rating,
+  createdAt: string,
+  updatedAt: string
 }
 
 export interface Comment {

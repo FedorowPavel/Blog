@@ -6,9 +6,11 @@ import Typography from "@mui/material/Typography";
 import {postsApi} from "../store/PostsApi";
 import {useLocation, useNavigate} from "react-router-dom";
 import BlogFullCoveringSpinner from "../../../common/components/ui/BlogFullCoveringSpinner";
+import {useAppSelector} from "../../../common/store/hooks";
 
 const Posts = () => {
 
+  const {user} = useAppSelector(state => state.authReducer)
   const {data: posts, isLoading} = postsApi.useGetAllPostsQuery(null)
 
   const navigate = useNavigate()
@@ -44,6 +46,7 @@ const Posts = () => {
                   </Typography>
                 </CardContent>
               </CardActionArea>
+              {user?.id === post.author.id ? <p>Your post</p> : null}
             </BlogSimpleCard>
 
           )
