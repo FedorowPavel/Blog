@@ -11,11 +11,11 @@ export class JwtAuthGuards implements CanActivate {
       const authToken = req.cookies.token
 
       if(!authToken) {
-        throw new UnauthorizedException({message: 'user not authorized'})
+        throw new UnauthorizedException({message: 'You are not authorized, please login'})
       }
       return true
     } catch (e) {
-      throw new UnauthorizedException({message: 'user not authorized'})
+      throw new UnauthorizedException({message: 'You are not authorized, please login'})
     }
   }
 

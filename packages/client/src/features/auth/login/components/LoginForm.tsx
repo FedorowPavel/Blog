@@ -2,7 +2,7 @@ import React, {FC, useCallback, useEffect} from 'react';
 import {
   Button,
   FormGroup,
-  TextField, useTheme
+  TextField,
 } from "@mui/material";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import FormFieldWrapper from "../../../../common/components/wrappers/FormFieldWrapper";
@@ -11,12 +11,12 @@ import {CredentialsFormData, RegistrationFormFieldsEnum} from "../../registratio
 import {authApi} from "../../registration/store/authApi/AuthApi";
 import 'react-toastify/dist/ReactToastify.css';
 import {useToast} from "../../../../common/hooks/useToast";
-import {GridLoader} from "react-spinners";
 import {QueryFixedCacheKeysENUM} from "../../../../common/constants";
+import { useNavigate } from 'react-router-dom';
 
 
 const LoginForm: FC = () => {
-  const theme = useTheme()
+  const navigate = useNavigate()
   const {control, handleSubmit, formState: {isValid, errors}, getValues, setValue, watch} = useForm<CredentialsFormData>({
       defaultValues: {
         email: '',
@@ -32,7 +32,7 @@ const LoginForm: FC = () => {
   useToast(error, user)
 
   const onSubmit: SubmitHandler<CredentialsFormData> = loginData => {
-    loginUser(loginData)
+    loginUser({loginData, navigate})
   };
 
   const toggleShowPassword = useCallback(() => {

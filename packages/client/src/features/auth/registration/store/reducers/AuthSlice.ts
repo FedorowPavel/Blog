@@ -1,12 +1,13 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {User} from "../authApi/types";
+import {getDataFromLocalStorage} from "../../../../../common/utils/utils";
 
 interface AuthState {
   user: User | null,
 }
 
 const initState: AuthState = {
-  user: null,
+  user: getDataFromLocalStorage('user') || null,
 }
 
 export const authSlice = createSlice({

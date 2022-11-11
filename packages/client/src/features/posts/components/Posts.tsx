@@ -7,16 +7,17 @@ import {postsApi} from "../store/PostsApi";
 import {useLocation, useNavigate} from "react-router-dom";
 import BlogFullCoveringSpinner from "../../../common/components/ui/BlogFullCoveringSpinner";
 import {useAppSelector} from "../../../common/store/hooks";
+import {useToast} from "../../../common/hooks/useToast";
 
 const Posts = () => {
-
   const {user} = useAppSelector(state => state.authReducer)
-  const {data: posts, isLoading} = postsApi.useGetAllPostsQuery(null)
+  const {data: posts, isLoading, error} = postsApi.useGetAllPostsQuery(null)
+  useToast(error)
 
   const navigate = useNavigate()
   const location = useLocation()
 
-  const openSingePost = (id: number) => {
+  const openSinglePost = (id: number) => {
     navigate(`${location.pathname}/${id}`, {relative: 'path'})
   }
 
@@ -26,7 +27,7 @@ const Posts = () => {
         ? posts.map(post => {
           return (
             <BlogSimpleCard sxProps={{margin: '40px 0'}} key={post.id}>
-              <CardActionArea onClick={() => openSingePost(post.id)}>
+              <CardActionArea onClick={() => openSinglePost(post.id)}>
                 <CardMedia
                   component="img"
                   height="140"

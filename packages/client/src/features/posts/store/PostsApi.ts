@@ -1,20 +1,14 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {Post} from "../models/types";
+import {api} from "../../../common/store";
 
-export const postsApi = createApi({
-  reducerPath: 'postsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/posts",
-    credentials: 'include',
-  }),
-  tagTypes: ['Posts'],
+export const postsApi = api.injectEndpoints({
   endpoints: (build) =>  ({
     getAllPosts: build.query<Post[], null>({
-      query: () => ({url: '/all'}),
+      query: () => ({url: 'posts/all'}),
       transformResponse: (response: Post[]) => response,
     }),
     getPost: build.query<Post, number>({
-      query: (id) => ({url: `?id=${id}`}),
+      query: (id) => ({url: `posts/?id=${id}`}),
       transformResponse: (response: Post) => response,
     }),
   })

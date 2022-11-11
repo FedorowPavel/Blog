@@ -49,8 +49,6 @@ const BlogTopBar = () => {
     if(route === 'logout') {
       navigate('/login')
       logout(null)
-      // deleteCookie('token')
-      // dispatch(logout())
       return
     }
     if(route) {

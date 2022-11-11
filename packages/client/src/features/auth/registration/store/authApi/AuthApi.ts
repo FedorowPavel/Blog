@@ -1,61 +1,46 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {User} from "./types";
 import {CredentialsFormData} from "../../models/types";
-import {setUser} from "../reducers/AuthSlice";
+import {logout, setUser} from "../reducers/AuthSlice";
+import { NavigateFunction } from 'react-router-dom';
+import {removeDataFromLocalStorage, setDataToLocalStorage} from "../../../../../common/utils/utils";
+import {api} from "../../../../../common/store";
 
-export const authApi = createApi({
-  reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/auth/",
-    credentials: 'include',
-  }),
+export const authApi = api.injectEndpoints({
   endpoints: (build) =>  ({
-    loginUser: build.mutation<{ token: string, user: User }, CredentialsFormData>({
-      query(data) {
+    loginUser: build.mutation<{ token: string, user: User }, {loginData: CredentialsFormData, navigate: NavigateFunction}>({
+      query({loginData}) {
         return {
-          url: 'login',
+          url: 'auth/login',
           method: 'POST',
-          body: data,
+          body: loginData,
         }
       },
-      async onQueryStarted(args, {dispatch, queryFulfilled}) {
+      async onQueryStarted({navigate}, {dispatch, queryFulfilled}) {
         try {
           const {data} = await queryFulfilled;
           dispatch(setUser(data.user));
+          setDataToLocalStorage(data.user, 'user')
+          navigate('/feed')
         } catch (error) {
           throw new Error('login error')
         }
       },
     }),
-    loginUserWithCookies: build.mutation<User, null>({
-      query() {
+    registerUser: build.mutation<{ user: User }, { registrationData: FormData, navigate: NavigateFunction}>({
+      query({registrationData}) {
         return {
-          url: 'loginWithCookies',
+          url: 'auth/registration',
           method: 'POST',
+          body: registrationData,
         }
       },
-      async onQueryStarted(args, {dispatch, queryFulfilled}) {
-        try {
-          const {data} = await queryFulfilled;
-          dispatch(setUser(data));
-        } catch (error) {
-          throw new Error('login with cookies error')
-        }
-      },
-    }),
-    registerUser: build.mutation<{ user: User }, FormData>({
-      query(data) {
-        return {
-          url: 'registration',
-          method: 'POST',
-          body: data,
-        }
-      },
-      async onQueryStarted(args, {dispatch, queryFulfilled}) {
+      async onQueryStarted({navigate}, {dispatch, queryFulfilled}) {
         try {
           const {data} = await queryFulfilled;
           dispatch(setUser(data.user));
-
+          setDataToLocalStorage(data.user, 'user')
+          navigate('/feed')
         } catch (error) {
           throw new Error('registration error')
         }
@@ -64,14 +49,15 @@ export const authApi = createApi({
     logout: build.mutation<{ user: User }, null>({
       query() {
         return {
-          url: 'logout',
+          url: 'auth/logout',
           method: 'POST',
         }
       },
       async onQueryStarted(args, {dispatch, queryFulfilled}) {
         try {
           const {data} = await queryFulfilled;
-          dispatch(setUser(data.user));
+          removeDataFromLocalStorage('user')
+          dispatch(logout());
         } catch (error) {
           throw new Error('logout error')
         }

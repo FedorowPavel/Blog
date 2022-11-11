@@ -16,26 +16,22 @@ type Props = {
 }
 
 const StepWrapper: FC<Props> = ({title, children}) => {
+  const navigate = useNavigate()
   const {nextStep, prevStep, prevIsDisabled, isLastStep} = useStep()
   const [isCurrentFormValid, setIsCurrentFormValid] = useState<boolean>()
   const [image, setImage] = useState<File>()
-  const [registerUser, {data: user, isLoading}] = authApi.useRegisterUserMutation({
+  const [registerUser, {isLoading}] = authApi.useRegisterUserMutation({
     fixedCacheKey: QueryFixedCacheKeysENUM.REGISTER_USER,
   })
-  const navigate = useNavigate();
-
 
   const registerHandler = () => {
     const registrationData = getRegistrationData(image as File)
-    registerUser(registrationData)
+    registerUser({registrationData, navigate})
   }
 
   useEffect(() => {
-    if(user) {
-      navigate('/feed')
-    }
     return clearStoredRegistrationData()
-  }, [user])
+  }, [])
 
   return (
     <BlogSimpleCard sxProps={{

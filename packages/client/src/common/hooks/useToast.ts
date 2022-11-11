@@ -4,11 +4,11 @@ import {toast} from "react-toastify";
 import {useEffect} from "react";
 import {SerializedError} from "@reduxjs/toolkit";
 
-export function useToast(error: FetchBaseQueryError | SerializedError| undefined, data: unknown) {
+export function useToast(error: FetchBaseQueryError | SerializedError| undefined, data?: unknown) {
   const { notifications, clear, markAllAsRead, markAsRead } = useNotificationCenter();
 
   const showErrorToast = (error:  FetchBaseQueryError) => {
-    toast.error(error.status + ' - ' + (error.data as {message: string})!.message,
+    toast.error((error.data as {message: string})!.message,
       {
         position: toast.POSITION.TOP_RIGHT
       });

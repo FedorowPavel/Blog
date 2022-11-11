@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import {useNavigate} from "react-router-dom";
 import {useAppSelector} from "../store/hooks";
 
-export default function Error() {
+export default function NotFoundPage() {
 
   const navigate = useNavigate()
   const {user} = useAppSelector(state => state.authReducer)

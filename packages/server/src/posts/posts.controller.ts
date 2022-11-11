@@ -1,7 +1,8 @@
-import {Body, Controller, Get, Post, Query, UploadedFile, UseInterceptors} from '@nestjs/common';
+import {Body, Controller, Get, Post, Query, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
 import {CreatePostDto} from "./dto/create-post.dto";
 import {PostsService} from "./posts.service";
 import {FileInterceptor} from "@nestjs/platform-express";
+import {JwtAuthGuards} from "../auth/jwt-auth.guards";
 
 @Controller('posts')
 export class PostsController {
@@ -18,6 +19,7 @@ export class PostsController {
   }
 
   @Get('/all')
+  @UseGuards(JwtAuthGuards)
   getAllPosts() {
     return this.postService.getAllPosts()
   }
