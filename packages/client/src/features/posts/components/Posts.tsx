@@ -1,16 +1,16 @@
 import React from 'react';
-import {QueryFixedCacheKeysENUM} from "../../../common/constants";
+import {QueryFixedCacheKeysENUM} from "../../../common/constants/queryCacheKeys";
 import {postsApi} from "../store/api";
 import BlogFullCoveringSpinner from "../../../common/components/ui/BlogFullCoveringSpinner";
 import PostCard from "./PostCard";
 import {useToast} from "../../../common/hooks/useToast";
 
 const Posts = () => {
-  const {data: posts, isLoading, error} = postsApi.useGetAllPostsQuery(null)
+  const {data: posts, isLoading, error: getPostsError} = postsApi.useGetAllPostsQuery(null)
   const [, {isLoading: deleteIsLoading, error: deleteError, data: deleteResponseData}] = postsApi.useDeletePostMutation({
     fixedCacheKey: QueryFixedCacheKeysENUM.DELETE_POST,
   })
-  useToast(error || deleteError, deleteResponseData)
+  useToast(getPostsError || deleteError, deleteResponseData)
 
   return (
     <>

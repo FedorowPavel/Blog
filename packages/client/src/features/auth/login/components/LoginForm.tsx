@@ -9,7 +9,7 @@ import FormFieldWrapper from "../../../../common/components/wrappers/FormFieldWr
 import PasswordVisibilityIcon from "./PasswordVisibilityIcon";
 import 'react-toastify/dist/ReactToastify.css';
 import {useToast} from "../../../../common/hooks/useToast";
-import {QueryFixedCacheKeysENUM} from "../../../../common/constants";
+import {QueryFixedCacheKeysENUM} from "../../../../common/constants/queryCacheKeys";
 import { useNavigate } from 'react-router-dom';
 import {baseAuthApi} from "../../baseAuth/store/api/api";
 import {LoginFormFieldsEnum} from "../models/types";

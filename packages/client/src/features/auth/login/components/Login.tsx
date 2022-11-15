@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Box} from "@mui/material";
 import {Link} from "react-router-dom";
 import LoginForm from './LoginForm';
-import {QueryFixedCacheKeysENUM} from "../../../../common/constants";
+import {QueryFixedCacheKeysENUM} from "../../../../common/constants/queryCacheKeys";
 import BlogFullCoveringSpinner from "../../../../common/components/ui/BlogFullCoveringSpinner";
 import BlogSimpleCard from "../../../../common/components/ui/BlogSimpleCard";
 import BlogTitle from "../../../../common/components/ui/BlogTitle";

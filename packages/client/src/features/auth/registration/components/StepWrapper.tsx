@@ -6,7 +6,7 @@ import {registrationApi} from "../store/api/api";
 import {useNavigate} from "react-router-dom";
 import BlogSimpleCard from "../../../../common/components/ui/BlogSimpleCard";
 import BlogFullCoveringSpinner from "../../../../common/components/ui/BlogFullCoveringSpinner";
-import {QueryFixedCacheKeysENUM} from "../../../../common/constants";
+import {QueryFixedCacheKeysENUM} from "../../../../common/constants/queryCacheKeys";
 import BlogTitle from '../../../../common/components/ui/BlogTitle';
 import {clearStoredRegistrationData} from "../../../../common/utils/sessionStorageUtils";
 

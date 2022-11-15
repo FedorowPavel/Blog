@@ -1,12 +1,13 @@
 import { CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
 import React, {FC} from 'react';
 import BlogSimpleCard from "../../../common/components/ui/BlogSimpleCard";
-import {BACKEND_BASE_URL, QueryFixedCacheKeysENUM} from "../../../common/constants";
+import {QueryFixedCacheKeysENUM} from "../../../common/constants/queryCacheKeys";
 import {Post} from "../models/postModels";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {useAppSelector} from "../../../common/store/hooks";
 import {useLocation, useNavigate } from 'react-router-dom';
 import {postsApi} from "../store/api";
+import {BACKEND_BASE_URL} from "../../../common/store/baseQueryWithInterceptor";
 
 interface PostCardProps {
   post: Post,

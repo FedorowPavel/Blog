@@ -1,8 +1,10 @@
 import {BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import {logout} from "../../features/auth/baseAuth/store/reducers/authSlice";
 
+export const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
+
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:5000/',
+  baseUrl: BACKEND_BASE_URL,
   credentials: 'include',
 })
 

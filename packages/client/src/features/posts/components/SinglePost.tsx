@@ -4,9 +4,9 @@ import {postsApi} from "../store/api";
 import BlogFullCoveringSpinner from "../../../common/components/ui/BlogFullCoveringSpinner";
 import {Box, Button} from "@mui/material";
 import {ArrowLeft} from "@mui/icons-material";
-import {BACKEND_BASE_URL} from "../../../common/constants";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import {BACKEND_BASE_URL} from "../../../common/store/baseQueryWithInterceptor";
 
 const SinglePost = () => {
   const {id} = useParams<{id: string}>();
