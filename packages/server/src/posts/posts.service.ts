@@ -19,6 +19,14 @@ export class PostsService {
     return post
   }
 
+  async delete(id: number) {
+    const post = await this.postRepository.findOne({where: {id}})
+    if(!post) {
+      throw new Error('post does not exist')
+    }
+    await this.postRepository.destroy({where: {id}})
+  }
+
   async getAllPosts() {
     const post = await this.postRepository.findAll({include: {all: true}})
     return post

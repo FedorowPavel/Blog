@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Query, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Post, Query, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
 import {CreatePostDto} from "./dto/create-post.dto";
 import {PostsService} from "./posts.service";
 import {FileInterceptor} from "@nestjs/platform-express";
@@ -16,6 +16,11 @@ export class PostsController {
     @UploadedFile() image
     ) {
     return this.postService.create(dto, image)
+  }
+
+  @Delete()
+  deletePost(@Query() query: { id: number }) {
+    return this.postService.delete(query.id)
   }
 
   @Get('/all')
