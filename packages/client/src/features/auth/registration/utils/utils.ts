@@ -1,5 +1,5 @@
-import {RegistrationData, registrationDataKeys} from "../models/types";
-import {getDataFromSessionStorage} from "../../../../common/utils/utils";
+import {RegistrationData, registrationDataKeys} from "../models/registrationDataModel";
+import {getDataFromSessionStorage} from "../../../../common/utils/sessionStorageUtils";
 
 export function getRegistrationData(file: File): FormData {
   let data = {} as RegistrationData

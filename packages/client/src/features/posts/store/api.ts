@@ -1,4 +1,4 @@
-import {Post} from "../models/types";
+import {Post} from "../models/postModels";
 import {api} from "../../../common/store";
 
 export const postsApi = api.injectEndpoints({

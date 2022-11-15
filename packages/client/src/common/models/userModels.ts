@@ -1,4 +1,4 @@
-import {Post} from "../../../../posts/models/types";
+import {Post} from "../../features/posts/models/postModels";
 
 export interface User {
   id: number,
@@ -20,9 +20,4 @@ export interface Role {
   description: string,
   createdAt: string,
   updatedAt: string,
-}
-
-export interface IGenericResponse {
-  status: string;
-  message: string;
 }

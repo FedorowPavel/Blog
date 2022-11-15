@@ -1,5 +1,5 @@
 import {BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
-import {logout} from "../../features/auth/registration/store/reducers/AuthSlice";
+import {logout} from "../../features/auth/baseAuth/store/reducers/authSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:5000/',

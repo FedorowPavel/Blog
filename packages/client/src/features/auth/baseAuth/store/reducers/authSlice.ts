@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {User} from "../authApi/types";
-import {getDataFromLocalStorage} from "../../../../../common/utils/utils";
+import {getDataFromLocalStorage} from "../../../../../common/utils/localStorageUtils";
+import {User} from "../../../../../common/models/userModels";
 
 interface AuthState {
   user: User | null,

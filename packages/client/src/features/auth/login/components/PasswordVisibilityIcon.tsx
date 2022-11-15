@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {IconButton, InputAdornment} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {CredentialsFormData} from "../../registration/models/types";
+import {CredentialsFormData} from "../../baseAuth/models/types";
 
 interface PasswordVisibilityIconProps {
   watch: () => CredentialsFormData,

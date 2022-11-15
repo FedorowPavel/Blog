@@ -1,5 +1,5 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import authReducer from '../../features/auth/registration/store/reducers/AuthSlice'
+import authReducer from '../../features/auth/baseAuth/store/reducers/authSlice'
 import {createApi} from '@reduxjs/toolkit/query/react'
 import { baseQueryWithInterceptor } from "./baseQueryWithInterceptor";
 

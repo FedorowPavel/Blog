@@ -14,8 +14,8 @@ import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import {useAppSelector} from "../../store/hooks";
 import {BACKEND_BASE_URL} from "../../constants";
-import {logout} from "../../../features/auth/registration/store/reducers/AuthSlice";
-import {authApi} from "../../../features/auth/registration/store/authApi/AuthApi";
+import {logout} from "../../../features/auth/baseAuth/store/reducers/authSlice";
+import {baseAuthApi} from "../../../features/auth/baseAuth/store/api/api";
 
 const notAuthButtons = ['Login', 'Registration'];
 const authButtons = ['Logout'];
@@ -24,7 +24,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const BlogTopBar = () => {
   const {user} = useAppSelector(state => state.authReducer)
   const navigate = useNavigate()
-  const [logout] = authApi.useLogoutMutation()
+  const [logout] = baseAuthApi.useLogoutMutation()
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);

@@ -1,4 +1,4 @@
-import {User} from "../../auth/registration/store/authApi/types";
+import {User} from "../../../common/models/userModels";
 
 export interface Post {
   id: number,
@@ -8,7 +8,7 @@ export interface Post {
   image: string,
   author: User,
   comments: Comment[],
-  rating: Rating,
+  rating: number,
   createdAt: string,
   updatedAt: string
 }
@@ -16,8 +16,6 @@ export interface Post {
 export interface Comment {
   id: number,
   content: string,
-  rating: Rating,
+  rating: number,
   author: string,
 }
-
-export type Rating = 1 | 2 | 3 | 4 | 5

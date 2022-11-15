@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect} from 'react';
+import React, {FC, useCallback} from 'react';
 import {
   Button,
   FormGroup,
@@ -7,12 +7,13 @@ import {
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import FormFieldWrapper from "../../../../common/components/wrappers/FormFieldWrapper";
 import PasswordVisibilityIcon from "./PasswordVisibilityIcon";
-import {CredentialsFormData, RegistrationFormFieldsEnum} from "../../registration/models/types";
-import {authApi} from "../../registration/store/authApi/AuthApi";
 import 'react-toastify/dist/ReactToastify.css';
 import {useToast} from "../../../../common/hooks/useToast";
 import {QueryFixedCacheKeysENUM} from "../../../../common/constants";
 import { useNavigate } from 'react-router-dom';
+import {baseAuthApi} from "../../baseAuth/store/api/api";
+import {LoginFormFieldsEnum} from "../models/types";
+import {CredentialsFormData} from "../../baseAuth/models/types";
 
 
 const LoginForm: FC = () => {
@@ -26,7 +27,7 @@ const LoginForm: FC = () => {
       mode: 'all'
     }
   );
-  const [loginUser, {data: user, error}] = authApi.useLoginUserMutation({
+  const [loginUser, {data: user, error}] = baseAuthApi.useLoginUserMutation({
     fixedCacheKey: QueryFixedCacheKeysENUM.LOGIN_USER,
   })
   useToast(error, user)
@@ -56,8 +57,8 @@ const LoginForm: FC = () => {
               <TextField
                 {...field}
                 fullWidth
-                error={!!errors[RegistrationFormFieldsEnum.EMAIL]}
-                helperText={errors[RegistrationFormFieldsEnum.EMAIL]?.message}
+                error={!!errors[LoginFormFieldsEnum.EMAIL]}
+                helperText={errors[LoginFormFieldsEnum.EMAIL]?.message}
                 autoFocus
                 id='email'
                 type='email'
@@ -83,8 +84,8 @@ const LoginForm: FC = () => {
                 type={getValues().showPassword ? 'text' : 'password'}
                 label="Password"
                 autoComplete='off'
-                error={!!errors[RegistrationFormFieldsEnum.PASSWORD]}
-                helperText={errors[RegistrationFormFieldsEnum.PASSWORD]?.message}
+                error={!!errors[LoginFormFieldsEnum.PASSWORD]}
+                helperText={errors[LoginFormFieldsEnum.PASSWORD]?.message}
                 InputProps={{
                   endAdornment: <PasswordVisibilityIcon watch={watch} toggleShowPassword={toggleShowPassword}/>
                 }}

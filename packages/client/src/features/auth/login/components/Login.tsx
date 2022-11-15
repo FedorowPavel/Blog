@@ -1,20 +1,17 @@
 import React, {FC} from 'react';
-import {
-  Box,
-} from "@mui/material";
+import {Box} from "@mui/material";
 import {Link} from "react-router-dom";
 import LoginForm from './LoginForm';
-import {authApi} from "../../registration/store/authApi/AuthApi";
 import {QueryFixedCacheKeysENUM} from "../../../../common/constants";
 import BlogFullCoveringSpinner from "../../../../common/components/ui/BlogFullCoveringSpinner";
 import BlogSimpleCard from "../../../../common/components/ui/BlogSimpleCard";
 import BlogTitle from "../../../../common/components/ui/BlogTitle";
+import {baseAuthApi} from "../../baseAuth/store/api/api";
 
 const Login: FC = () => {
-  const [, {isLoading}] = authApi.useLoginUserMutation({
+  const [, {isLoading}] = baseAuthApi.useLoginUserMutation({
     fixedCacheKey: QueryFixedCacheKeysENUM.LOGIN_USER,
   })
-
 
   return (
     <Box sx={{

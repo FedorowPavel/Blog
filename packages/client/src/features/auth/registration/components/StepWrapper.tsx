@@ -2,13 +2,13 @@ import React, {cloneElement, FC, useEffect, useState} from 'react';
 import {Box, Button} from "@mui/material";
 import {useStep} from "../hooks/useStep";
 import {getRegistrationData} from "../utils/utils";
-import {authApi} from "../store/authApi/AuthApi";
+import {registrationApi} from "../store/api/api";
 import {useNavigate} from "react-router-dom";
-import {clearStoredRegistrationData} from "../../../../common/utils/utils";
 import BlogSimpleCard from "../../../../common/components/ui/BlogSimpleCard";
 import BlogFullCoveringSpinner from "../../../../common/components/ui/BlogFullCoveringSpinner";
 import {QueryFixedCacheKeysENUM} from "../../../../common/constants";
 import BlogTitle from '../../../../common/components/ui/BlogTitle';
+import {clearStoredRegistrationData} from "../../../../common/utils/sessionStorageUtils";
 
 type Props = {
   title: string,
@@ -20,7 +20,7 @@ const StepWrapper: FC<Props> = ({title, children}) => {
   const {nextStep, prevStep, prevIsDisabled, isLastStep} = useStep()
   const [isCurrentFormValid, setIsCurrentFormValid] = useState<boolean>()
   const [image, setImage] = useState<File>()
-  const [registerUser, {isLoading}] = authApi.useRegisterUserMutation({
+  const [registerUser, {isLoading}] = registrationApi.useRegisterUserMutation({
     fixedCacheKey: QueryFixedCacheKeysENUM.REGISTER_USER,
   })
 

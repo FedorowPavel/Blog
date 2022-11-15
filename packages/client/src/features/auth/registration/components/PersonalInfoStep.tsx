@@ -3,9 +3,11 @@ import {Controller, useForm} from "react-hook-form";
 import { FormGroup, TextField} from "@mui/material";
 import FormFieldWrapper from "../../../../common/components/wrappers/FormFieldWrapper";
 import {useCurrentFormValidityState} from "../hooks/useCurrentFormValidityState";
-import {getDataFromSessionStorage, getValidationRules} from "../../../../common/utils/utils";
 import {useRegistrationFormDataChange} from "../hooks/useRegistrationFormDataChange";
-import {PersonalInfoFormData, RegistrationFormFieldsEnum, RegistrationStorageKeys, StepProps} from "../models/types";
+import {PersonalInfoFormData, RegistrationFormFieldsEnum, RegistrationStorageKeys} from "../models/registrationDataModel";
+import {getValidationRules} from "../../../../common/utils/validationRulesUtils";
+import {getDataFromSessionStorage} from "../../../../common/utils/sessionStorageUtils";
+import {StepProps} from "../models/stepModels";
 
 const defaultValues = {
   phone: '',

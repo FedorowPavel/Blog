@@ -3,7 +3,7 @@ import CredentialsStep from "../components/CredentialsStep";
 import PersonalInfoStep from "../components/PersonalInfoStep";
 import ImageStep from "../components/ImageStep";
 import StepWrapper from "../components/StepWrapper";
-import {RegistrationStep, StepTitlesEnum} from "../models/types";
+import {RegistrationStep, StepTitlesEnum} from "../models/stepModels";
 
 const steps: RegistrationStep[] = [
   {title: StepTitlesEnum.CREDENTIALS, component: <CredentialsStep setIsCurrentFormValid={() => {}}/>},

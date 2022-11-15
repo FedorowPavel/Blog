@@ -3,7 +3,7 @@ import BlogSimpleCard from "../../../common/components/ui/BlogSimpleCard";
 import {CardActionArea, CardContent, CardMedia} from "@mui/material";
 import {BACKEND_BASE_URL} from "../../../common/constants";
 import Typography from "@mui/material/Typography";
-import {postsApi} from "../store/PostsApi";
+import {postsApi} from "../store/api";
 import {useLocation, useNavigate} from "react-router-dom";
 import BlogFullCoveringSpinner from "../../../common/components/ui/BlogFullCoveringSpinner";
 import {useAppSelector} from "../../../common/store/hooks";

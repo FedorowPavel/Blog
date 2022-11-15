@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import {postsApi} from "../store/PostsApi";
+import {postsApi} from "../store/api";
 import BlogFullCoveringSpinner from "../../../common/components/ui/BlogFullCoveringSpinner";
 import {Box, Button} from "@mui/material";
 import {ArrowLeft} from "@mui/icons-material";

@@ -1,12 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import {User} from "./types";
-import {CredentialsFormData} from "../../models/types";
-import {logout, setUser} from "../reducers/AuthSlice";
-import { NavigateFunction } from 'react-router-dom';
-import {removeDataFromLocalStorage, setDataToLocalStorage} from "../../../../../common/utils/utils";
 import {api} from "../../../../../common/store";
+import { NavigateFunction } from "react-router-dom";
+import {logout, setUser} from "../reducers/authSlice";
+import {removeDataFromLocalStorage, setDataToLocalStorage} from "../../../../../common/utils/localStorageUtils";
+import {CredentialsFormData} from "../../models/types";
+import {User} from "../../../../../common/models/userModels";
 
-export const authApi = api.injectEndpoints({
+export const baseAuthApi = api.injectEndpoints({
   endpoints: (build) =>  ({
     loginUser: build.mutation<{ token: string, user: User }, {loginData: CredentialsFormData, navigate: NavigateFunction}>({
       query({loginData}) {
@@ -24,25 +23,6 @@ export const authApi = api.injectEndpoints({
           navigate('/feed')
         } catch (error) {
           throw new Error('login error')
-        }
-      },
-    }),
-    registerUser: build.mutation<{ user: User }, { registrationData: FormData, navigate: NavigateFunction}>({
-      query({registrationData}) {
-        return {
-          url: 'auth/registration',
-          method: 'POST',
-          body: registrationData,
-        }
-      },
-      async onQueryStarted({navigate}, {dispatch, queryFulfilled}) {
-        try {
-          const {data} = await queryFulfilled;
-          dispatch(setUser(data.user));
-          setDataToLocalStorage(data.user, 'user')
-          navigate('/feed')
-        } catch (error) {
-          throw new Error('registration error')
         }
       },
     }),
