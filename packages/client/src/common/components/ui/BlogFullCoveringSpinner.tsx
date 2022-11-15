@@ -17,6 +17,7 @@ const BlogFullCoveringSpinner: FC<{isLoading: boolean}> = ({isLoading}) => {
       transform: 'translate(50%, -50%)',
       backgroundColor: `${theme.palette.grey["400"]}` + 'bb',
       height: '100%',
+      maxHeight: '100vh',
       width: '100%',
       display: "flex",
       alignItems: "center",
