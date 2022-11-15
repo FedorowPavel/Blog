@@ -4,7 +4,7 @@ import {toast} from "react-toastify";
 import {useEffect} from "react";
 import {SerializedError} from "@reduxjs/toolkit";
 
-export function useToast(error: FetchBaseQueryError | SerializedError| undefined, data?: unknown) {
+export function useToast(error: FetchBaseQueryError | SerializedError| undefined, data?: any) {
   const { notifications, clear, markAllAsRead, markAsRead } = useNotificationCenter();
 
   const showErrorToast = (error:  FetchBaseQueryError) => {
@@ -15,7 +15,8 @@ export function useToast(error: FetchBaseQueryError | SerializedError| undefined
   };
 
   const showSuccessToast = () => {
-    toast.success('Success',
+    const toastMessage =  data?.message ? data?.message : 'Success';
+    toast.success(toastMessage,
       {
         position: toast.POSITION.TOP_RIGHT
       });
@@ -30,5 +31,5 @@ export function useToast(error: FetchBaseQueryError | SerializedError| undefined
     }
   }, [error, data])
 
-  return { notifications, clear, markAllAsRead, markAsRead }
+  return { notifications, clear, markAllAsRead, markAsRead, showSuccessToast, showErrorToast}
 }

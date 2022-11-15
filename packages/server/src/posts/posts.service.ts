@@ -25,6 +25,7 @@ export class PostsService {
       throw new Error('post does not exist')
     }
     await this.postRepository.destroy({where: {id}})
+    return {message: `Post ${post.id} deleted successfully`}
   }
 
   async getAllPosts() {
