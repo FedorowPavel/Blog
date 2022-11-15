@@ -3,6 +3,7 @@ import {CreatePostDto} from "./dto/create-post.dto";
 import {PostsService} from "./posts.service";
 import {FileInterceptor} from "@nestjs/platform-express";
 import {JwtAuthGuards} from "../auth/jwt-auth.guards";
+import {DeletePostDto} from "./dto/delete-post.dto";
 
 @Controller('posts')
 export class PostsController {
@@ -19,8 +20,8 @@ export class PostsController {
   }
 
   @Delete()
-  deletePost(@Query() query: { id: number }) {
-    return this.postService.delete(query.id)
+  deletePost(@Body() dto: DeletePostDto) {
+    return this.postService.delete(dto.postId)
   }
 
   @Get('/all')
