@@ -1,25 +1,20 @@
 import React from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {postsApi} from "../store/api";
 import BlogFullCoveringSpinner from "../../../common/components/ui/BlogFullCoveringSpinner";
-import {Box, Button} from "@mui/material";
-import {ArrowLeft} from "@mui/icons-material";
+import {Box} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import {BACKEND_BASE_URL} from "../../../common/store/baseQueryWithInterceptor";
+import GoBackButton from "../../../common/components/ui/GoBackButton";
 
 const SinglePost = () => {
   const {id} = useParams<{id: string}>();
   const {data: post, isLoading} = postsApi.useGetPostQuery(Number(id))
-  const navigate = useNavigate()
-
-  const handleGoBack = () => {
-    navigate(-1)
-  }
 
   return (
     <>
-      <Button onClick={handleGoBack} variant="outlined" startIcon={<ArrowLeft />}>Go Back</Button>
+      <GoBackButton/>
       {
         post ? <pre>{JSON.stringify(post, null, 2)}</pre> : <span>no data</span>
       }

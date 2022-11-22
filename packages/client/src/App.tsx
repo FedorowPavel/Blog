@@ -8,6 +8,7 @@ import Login from "./features/auth/login";
 import Feed from "./features/feed";
 import SinglePost from "./features/posts/components/SinglePost";
 import Posts from "./features/posts/components/Posts";
+import CreatePost from "./features/posts/components/CreatePost";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='/feed' element={<Feed/>}>
             <Route index element={<Posts/>}/>
             <Route path=':id' element={<SinglePost/>}/>
+            <Route path='create-post' element={<CreatePost/>}/>
           </Route>
         </Route>
 

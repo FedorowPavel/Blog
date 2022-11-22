@@ -19,3 +19,10 @@ export interface Comment {
   rating: number,
   author: string,
 }
+
+export interface CreatePostFormData {
+  image: File,
+  title: string,
+  summary: string,
+  content: string
+}

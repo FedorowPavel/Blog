@@ -17,7 +17,7 @@ interface BlogModalProps {
   isOpen: boolean,
   setIsOpen: (arg: boolean) => void,
   modalTitle: string,
-  modalText: string,
+  modalText?: string,
   applyCallback?: () => void,
   applyButtonConfig?: ButtonProps,
   applyText: string,
@@ -71,12 +71,16 @@ const BlogModal: FC<BlogModalProps> = ({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ m: 2 }}>
             {modalTitle}
           </Typography>
-          <Typography id="modal-modal-description" sx={{ m: 2 , textTransform: 'uppercase'}}>
-            {modalText}
-          </Typography>
+          {
+            modalText
+              ? <Typography id="modal-modal-description" sx={{ m: 2 , textTransform: 'uppercase'}}>
+                {modalText}
+              </Typography>
+              : null
+          }
           {customElement ? customElement : null}
           <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Button onClick={() => handleCancel()} {...cancelConfig}>

@@ -25,9 +25,11 @@ export function useToast(error: FetchBaseQueryError | SerializedError| undefined
   useEffect(() => {
     if(data) {
       showSuccessToast()
+      clear()
     }
     if(error) {
       showErrorToast(error as FetchBaseQueryError)
+      clear()
     }
   }, [error, data])
 
