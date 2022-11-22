@@ -26,3 +26,7 @@ export interface CreatePostFormData {
   summary: string,
   content: string
 }
+
+export interface CreatePostData extends CreatePostFormData {
+  userId: number
+}

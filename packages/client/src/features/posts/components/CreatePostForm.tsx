@@ -4,11 +4,15 @@ import {useNavigate} from 'react-router-dom';
 import {Button, FormGroup, TextareaAutosize, TextField, Typography} from '@mui/material';
 import PostImagePreview from "./PostImagePreview";
 import {CreatePostFormData} from "../models/postModels";
+import {postsApi} from "../store/api";
+import {prepareCreatePostData} from "../utils/createPostUtils";
+import {useAppSelector} from "../../../common/store/hooks";
 
 const labelStyles = { m: '14px 0' }
 
 const CreatePostForm = () => {
   const [previewUrl, setPreviewUrl] = useState<string>('')
+  const {user} = useAppSelector(state => state.authReducer)
   const navigate = useNavigate()
   const {control, handleSubmit, formState: {isValid, errors}, register, setValue} = useForm<CreatePostFormData>({
       defaultValues: {
@@ -20,10 +24,11 @@ const CreatePostForm = () => {
       mode: 'all'
     }
   );
+  const [createPost, {}] = postsApi.useCreatePostMutation()
 
   const onSubmit: SubmitHandler<CreatePostFormData> = createPostData => {
-    console.log(createPostData)
-    // loginUser({loginData, navigate})
+    const preparedData = prepareCreatePostData({...createPostData, userId: user?.id as number})
+    createPost(preparedData)
   };
 
   const handleInputChange = (e: FileList) => {

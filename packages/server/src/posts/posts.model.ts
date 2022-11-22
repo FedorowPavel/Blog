@@ -22,7 +22,7 @@ export class Post extends Model<Post, PostCreationAttrs> {
   @Column({type: DataType.STRING, allowNull: false})
   summary: string;
 
-  @Column({type: DataType.STRING, allowNull: false})
+  @Column({type: DataType.TEXT, allowNull: false})
   content: string;
 
   @Column({type: DataType.STRING})

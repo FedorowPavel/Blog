@@ -3,7 +3,6 @@ import React, {FC, useState} from 'react';
 import BlogSimpleCard from "../../../common/components/ui/BlogSimpleCard";
 import {QueryFixedCacheKeysENUM} from "../../../common/constants/queryCacheKeys";
 import {Post} from "../models/postModels";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {useAppSelector} from "../../../common/store/hooks";
 import {useLocation, useNavigate } from 'react-router-dom';
 import {postsApi} from "../store/api";

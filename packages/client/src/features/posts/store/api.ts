@@ -1,4 +1,4 @@
-import {Post} from "../models/postModels";
+import {CreatePostData, Post} from "../models/postModels";
 import {api} from "../../../common/store";
 import {User} from "../../../common/models/userModels";
 import {CredentialsFormData} from "../../auth/baseAuth/models/types";
@@ -15,6 +15,15 @@ export const postsApi = api.injectEndpoints({
     getPost: build.query<Post, number>({
       query: (id) => ({url: `posts/?id=${id}`}),
       transformResponse: (response: Post) => response,
+    }),
+
+    createPost: build.mutation<Post, FormData>({
+      query: (data) => ({
+        method: 'POST',
+        url: `posts`,
+        body: data,
+      }),
+      invalidatesTags: ['Posts']
     }),
 
     deletePost: build.mutation<{message: string}, {postId: number}>({
