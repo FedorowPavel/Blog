@@ -14,7 +14,7 @@ const CreatePostForm = () => {
   const [previewUrl, setPreviewUrl] = useState<string>('')
   const {user} = useAppSelector(state => state.authReducer)
   const navigate = useNavigate()
-  const {control, handleSubmit, formState: {isValid, errors}, register, setValue} = useForm<CreatePostFormData>({
+  const {control, handleSubmit, formState: {isValid}, register, setValue} = useForm<CreatePostFormData>({
       defaultValues: {
         image: undefined,
         title: '',
@@ -31,8 +31,7 @@ const CreatePostForm = () => {
     createPost(preparedData)
   };
 
-  const handleInputChange = (e: FileList) => {
-    console.log(e[0])
+  const handleImageChange = (e: FileList) => {
     setPreviewUrl(URL.createObjectURL(e[0]))
     setValue('image', e[0])
   }
@@ -52,7 +51,7 @@ const CreatePostForm = () => {
             {...register('image')}
             type="file"
             hidden
-            onChange={(e) => handleInputChange(e.target.files as FileList)}
+            onChange={(e) => handleImageChange(e.target.files as FileList)}
           />
         </Button>
 
@@ -82,6 +81,9 @@ const CreatePostForm = () => {
         <Controller
           name="summary"
           control={control}
+          rules={{
+            required:{value: true, message: 'This field is required'},
+          }}
           render={({field}) => (
             <TextField
               {...field}
@@ -98,6 +100,9 @@ const CreatePostForm = () => {
         <Controller
           name="content"
           control={control}
+          rules={{
+            required:{value: true, message: 'This field is required'},
+          }}
           render={({field}) => (
             <TextareaAutosize
               {...field}
