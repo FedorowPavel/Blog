@@ -13,6 +13,7 @@ export const postsApi = api.injectEndpoints({
       transformResponse: (response: Post[]) => response,
     }),
     getPost: build.query<Post, number>({
+      providesTags: ['SinglePost'],
       query: (id) => ({url: `posts/?id=${id}`}),
       transformResponse: (response: Post) => response,
     }),

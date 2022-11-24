@@ -1,10 +1,12 @@
 import React from 'react';
+import CreatePostForm from "./CreatePostForm";
+import BlogSimpleCard from "../../../common/components/ui/BlogSimpleCard";
 
 const PostCardEditMode = () => {
   return (
-    <div>
-      Edit mode
-    </div>
+    <BlogSimpleCard>
+      <CreatePostForm/>
+    </BlogSimpleCard>
   );
 };
 
