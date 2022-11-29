@@ -33,7 +33,7 @@ export const postsApi = api.injectEndpoints({
         url: `posts`,
         body: data,
       }),
-      invalidatesTags: ['SinglePost']
+      invalidatesTags: ['SinglePost', 'Posts']
     }),
 
     deletePost: build.mutation<{message: string}, {postId: number}>({
