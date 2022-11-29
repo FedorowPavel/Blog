@@ -1,26 +1,24 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
-import {useNavigate} from 'react-router-dom';
 import {Button, FormGroup, TextareaAutosize, TextField, Typography} from '@mui/material';
 import PostImagePreview from "./PostImagePreview";
-import {CreatePostFormData} from "../models/postModels";
+import {CreatePostFormData, Post} from "../models/postModels";
 import {postsApi} from "../store/api";
-import {prepareCreatePostData} from "../utils/createPostUtils";
+import {getDefaultPreviewUrl, getDefaultValues, prepareCreatePostData} from "../utils/createPostUtils";
 import {useAppSelector} from "../../../common/store/hooks";
 
 const labelStyles = { m: '14px 0' }
 
-const CreatePostForm = () => {
-  const [previewUrl, setPreviewUrl] = useState<string>('')
+export interface EditPostConfig {
+  isEditMode: boolean,
+  post: Post
+}
+
+const CreatePostForm: FC<{editPostConfig?: EditPostConfig}> = ({editPostConfig}) => {
+  const [previewUrl, setPreviewUrl] = useState<string>(getDefaultPreviewUrl(editPostConfig))
   const {user} = useAppSelector(state => state.authReducer)
-  const navigate = useNavigate()
   const {control, handleSubmit, formState: {isValid}, register, setValue} = useForm<CreatePostFormData>({
-      defaultValues: {
-        image: undefined,
-        title: '',
-        summary: '',
-        content: ''
-      },
+      defaultValues: getDefaultValues(editPostConfig),
       mode: 'all'
     }
   );
@@ -46,7 +44,7 @@ const CreatePostForm = () => {
           variant="outlined"
           component="label"
         >
-          Choose post image
+          {editPostConfig ? 'Change Image' : 'Choose post image'}
           <input
             {...register('image')}
             type="file"
@@ -122,7 +120,9 @@ const CreatePostForm = () => {
           )}
         />
 
-        <Button type="submit" disabled={!isValid} variant="contained" sx={{marginTop: '40px', fontSize: '20px'}}>Publish!</Button>
+        <Button type="submit" disabled={!isValid} variant="contained" sx={{marginTop: '40px', fontSize: '20px'}}>
+          {editPostConfig ? 'Edit post' : 'Publish!'}
+        </Button>
       </FormGroup>
     </form>
   );

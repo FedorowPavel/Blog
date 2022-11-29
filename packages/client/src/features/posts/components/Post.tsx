@@ -7,6 +7,7 @@ import PostCard from "./PostCard";
 import PostCardEditMode from './PostCardEditMode';
 import PostToolbar from "./PostToolbar";
 import {useAppSelector} from "../../../common/store/hooks";
+import {PostContext} from "../store/postContext";
 
 const Post = () => {
   const {id} = useParams<{id: string}>();
@@ -16,16 +17,16 @@ const Post = () => {
   const isToolBarShown = user?.id === post?.author.id
 
   return (
-    <>
+    <PostContext.Provider value={{editMode, setIsEditMode, post}}>
       <GoBackButton/>
       {
-        isToolBarShown ? <PostToolbar post={post} isEditMode={editMode} setIsEditMode={() => setIsEditMode(!editMode)}/> : null
+        isToolBarShown ? <PostToolbar/> : null
       }
       {
-        !editMode ? <PostCard post={post}/> : <PostCardEditMode/>
+        !editMode ? <PostCard/> : <PostCardEditMode/>
       }
       <BlogFullCoveringSpinner isLoading={isLoading}/>
-    </>
+    </PostContext.Provider>
   );
 }
 

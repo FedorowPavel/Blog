@@ -1,17 +1,19 @@
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import PostMetainfo from "./PostMetainfo";
 import PostContent from "./PostContent";
 import BlogSimpleCard from "../../../common/components/ui/BlogSimpleCard";
-import {Post} from "../models/postModels";
+import {PostContext} from "../store/postContext";
 
-const PostCard: FC<{post: Post | undefined}> = ({post}) => {
-  if(!post) {
+const PostCard: FC = () => {
+  const postCtx = useContext(PostContext)
+
+  if(!postCtx?.post) {
     return null
   }
   return (
     <BlogSimpleCard>
-      <PostMetainfo post={post}/>
-      <PostContent post={post}/>
+      <PostMetainfo post={postCtx?.post}/>
+      <PostContent post={postCtx?.post}/>
     </BlogSimpleCard>
   );
 };
