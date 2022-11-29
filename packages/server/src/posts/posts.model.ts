@@ -28,6 +28,9 @@ export class Post extends Model<Post, PostCreationAttrs> {
   @Column({type: DataType.STRING})
   image: string;
 
+  @Column({type: DataType.INTEGER, defaultValue: 0})
+  rating: string;
+
   // by this key we take data from User table
   @ForeignKey(() => User)
   @Column({type: DataType.INTEGER})
