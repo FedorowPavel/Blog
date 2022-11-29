@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {QueryFixedCacheKeysENUM} from "../../../common/constants/queryCacheKeys";
 import {postsApi} from "../store/api";
 import BlogFullCoveringSpinner from "../../../common/components/ui/BlogFullCoveringSpinner";
@@ -7,11 +7,15 @@ import {useToast} from "../../../common/hooks/useToast";
 import CreatePostButton from "./CreatePostButton";
 
   const Posts = () => {
-  const {data: posts, isLoading, error: getPostsError} = postsApi.useGetAllPostsQuery(null)
+  const {data: posts, isLoading, isFetching, error: getPostsError} = postsApi.useGetAllPostsQuery(null)
   const [, {isLoading: deleteIsLoading, error: deleteError, data: deleteResponseData}] = postsApi.useDeletePostMutation({
     fixedCacheKey: QueryFixedCacheKeysENUM.DELETE_POST,
   })
   useToast(getPostsError || deleteError, deleteResponseData)
+
+    useEffect(() => {
+      console.log({isLoading, isFetching, deleteIsLoading})
+    }, [isLoading, isFetching, deleteIsLoading])
 
   return (
     <>
@@ -22,7 +26,7 @@ import CreatePostButton from "./CreatePostButton";
       }
       <CreatePostButton/>
 
-      <BlogFullCoveringSpinner isLoading={isLoading || deleteIsLoading}/>
+      <BlogFullCoveringSpinner isLoading={isLoading || deleteIsLoading || isFetching}/>
     </>
   )
 };

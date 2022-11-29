@@ -49,7 +49,7 @@ export const postsApi = api.injectEndpoints({
     updatePostRating: build.mutation<{message: string}, {postId: number, delta: number}>({
       query: ({postId, delta}) => ({
         method: 'PUT',
-        url: `posts`,
+        url: `posts/updateRating`,
         body: {postId: postId, delta: delta},
       }),
       invalidatesTags: ['Posts']

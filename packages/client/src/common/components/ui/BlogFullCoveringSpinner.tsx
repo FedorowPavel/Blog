@@ -11,7 +11,7 @@ const BlogFullCoveringSpinner: FC<{isLoading: boolean}> = ({isLoading}) => {
 
   return (
     <Box sx={{
-      position: 'absolute',
+      position: 'fixed',
       top: '50%',
       right: '50%',
       transform: 'translate(50%, -50%)',
@@ -23,7 +23,6 @@ const BlogFullCoveringSpinner: FC<{isLoading: boolean}> = ({isLoading}) => {
       alignItems: "center",
       justifyContent: "center",
       zIndex: 100,
-      borderRadius: 4,
     }}>
       <GridLoader
         color={theme.palette.primary.dark}

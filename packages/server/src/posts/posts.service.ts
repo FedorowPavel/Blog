@@ -4,6 +4,7 @@ import {InjectModel} from "@nestjs/sequelize";
 import {Post} from "./posts.model";
 import {FilesService} from "../files/files.service";
 import {UpdatePostDto} from "./dto/update-post.dto";
+import {UpdatePostRatingDto} from "./dto/update-post-rating.dto";
 
 @Injectable()
 export class PostsService {
@@ -31,11 +32,23 @@ export class PostsService {
         const fileName = await this.filesService.createFile(image)
         existingPost.image = fileName
       }
-      existingPost.save()
+      await existingPost.save()
       return existingPost
     } catch {
       throw new Error('Error while updating post')
     }
+  }
+
+  async updatePostRating(dto: UpdatePostRatingDto) {
+    try {
+      const post = await this.getSinglePosts(dto.postId)
+      post.rating += dto.delta
+      await post.save()
+      return post
+    } catch {
+      throw new Error('Error while updating post rating')
+    }
+
   }
 
   async delete(id: number) {

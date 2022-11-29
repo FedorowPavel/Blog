@@ -5,6 +5,7 @@ import {FileInterceptor} from "@nestjs/platform-express";
 import {JwtAuthGuards} from "../auth/jwt-auth.guards";
 import {DeletePostDto} from "./dto/delete-post.dto";
 import {UpdatePostDto} from "./dto/update-post.dto";
+import {UpdatePostRatingDto} from "./dto/update-post-rating.dto";
 
 @Controller('posts')
 export class PostsController {
@@ -27,6 +28,13 @@ export class PostsController {
     @UploadedFile() image
   ) {
     return this.postService.update(dto, image)
+  }
+
+  @Put('/updateRating')
+  updatePostRating(
+    @Body() dto: UpdatePostRatingDto,
+  ) {
+    return this.postService.updatePostRating(dto)
   }
 
   @Delete()
