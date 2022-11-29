@@ -10,10 +10,11 @@ import {useAppSelector} from "../../../common/store/hooks";
 import {PostContext} from "../store/postContext";
 
 const Post = () => {
+  const {user} = useAppSelector(state => state.authReducer)
+  const [editMode, setIsEditMode] = useState<boolean>(false)
+
   const {id} = useParams<{id: string}>();
   const {data: post, isLoading} = postsApi.useGetPostQuery(Number(id))
-  const [editMode, setIsEditMode] = useState<boolean>(false)
-  const {user} = useAppSelector(state => state.authReducer)
   const isToolBarShown = user?.id === post?.author.id
 
   return (

@@ -23,9 +23,14 @@ const CreatePostForm: FC<{editPostConfig?: EditPostConfig}> = ({editPostConfig})
     }
   );
   const [createPost, {}] = postsApi.useCreatePostMutation()
+  const [updatePost, {}] = postsApi.useUpdatePostMutation()
 
   const onSubmit: SubmitHandler<CreatePostFormData> = createPostData => {
     const preparedData = prepareCreatePostData({...createPostData, userId: user?.id as number})
+    if(editPostConfig) {
+      updatePost(preparedData)
+      return
+    }
     createPost(preparedData)
   };
 

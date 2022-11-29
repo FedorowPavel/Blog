@@ -27,6 +27,15 @@ export const postsApi = api.injectEndpoints({
       invalidatesTags: ['Posts']
     }),
 
+    updatePost: build.mutation<Post, FormData>({
+      query: (data) => ({
+        method: 'PUT',
+        url: `posts`,
+        body: data,
+      }),
+      invalidatesTags: ['SinglePost']
+    }),
+
     deletePost: build.mutation<{message: string}, {postId: number}>({
       query: ({postId}) => ({
         method: 'DELETE',
