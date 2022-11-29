@@ -28,7 +28,7 @@ const DeletePostButton: FC<DeleteButtonProps> = ({isShown, post, navigateTo}) =>
   return (
     <>
       <DeleteForeverIcon
-        sx={{alignSelf: 'end', cursor: 'pointer'}}
+        sx={{cursor: 'pointer', marginLeft: 'auto', display: 'block'}}
         onClick={() => setIsDeleteModalOpen(true)}
       />
 

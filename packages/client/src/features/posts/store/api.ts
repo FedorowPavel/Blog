@@ -12,6 +12,7 @@ export const postsApi = api.injectEndpoints({
       query: () => ({url: 'posts/all'}),
       transformResponse: (response: Post[]) => response,
     }),
+
     getPost: build.query<Post, number>({
       providesTags: ['SinglePost'],
       query: (id) => ({url: `posts/?id=${id}`}),
@@ -41,6 +42,15 @@ export const postsApi = api.injectEndpoints({
         method: 'DELETE',
         url: `posts`,
         body: {postId: postId},
+      }),
+      invalidatesTags: ['Posts']
+    }),
+
+    updatePostRating: build.mutation<{message: string}, {postId: number, delta: number}>({
+      query: ({postId, delta}) => ({
+        method: 'PUT',
+        url: `posts`,
+        body: {postId: postId, delta: delta},
       }),
       invalidatesTags: ['Posts']
     }),

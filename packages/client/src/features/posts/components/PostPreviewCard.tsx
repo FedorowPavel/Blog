@@ -1,4 +1,4 @@
-import {ButtonProps, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
+import {Box, ButtonProps, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
 import React, {FC, useState} from 'react';
 import BlogSimpleCard from "../../../common/components/ui/BlogSimpleCard";
 import {QueryFixedCacheKeysENUM} from "../../../common/constants/queryCacheKeys";
@@ -9,6 +9,7 @@ import {postsApi} from "../store/api";
 import {BACKEND_BASE_URL} from "../../../common/store/baseQueryWithInterceptor";
 import BlogModal from "../../../common/components/ui/BlogModal";
 import DeletePostButton from "./DeletePostButton";
+import PostRating from "./PostRating";
 
 interface PostCardProps {
   post: Post,
@@ -36,31 +37,35 @@ const PostPreviewCard: FC<PostCardProps> = ({post}) => {
   return (
     <>
       <BlogSimpleCard sxProps={{margin: '40px 0'}} key={id}>
-        <CardActionArea onClick={() => openSinglePost(id)}>
-          <CardMedia
-            component="img"
-            height="140"
-            image={BACKEND_BASE_URL+image}
-            alt="green iguana"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {title}
-            </Typography>
+        <Box sx={{display: 'flex', flexDirection: 'row'}}>
 
-            <Typography variant="body2" color="text.secondary">
-              {summary}
-            </Typography>
-            <Typography variant="subtitle1" color="text.secondary">
-              {author.nickname}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+          <PostRating postRating={post.rating} postId={post.id}/>
 
-        <DeletePostButton
-          isShown={user?.id === author.id}
-          post={post}
-        />
+          <Box sx={{flexGrow: 1}}>
+            <CardActionArea onClick={() => openSinglePost(id)}>
+              <CardMedia
+                component="img"
+                height="140"
+                image={BACKEND_BASE_URL+image}
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {title}
+                </Typography>
+
+                <Typography variant="body2" color="text.secondary">
+                  {summary}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+
+            <DeletePostButton
+              isShown={user?.id === author.id}
+              post={post}
+            />
+          </Box>
+        </Box>
 
       </BlogSimpleCard>
 
