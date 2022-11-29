@@ -1,17 +1,23 @@
-import React, {FC, useState} from 'react';
+import React, {Dispatch, FC, SetStateAction, useState} from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {Button, FormGroup, TextareaAutosize, TextField, Typography} from '@mui/material';
 import PostImagePreview from "./PostImagePreview";
-import {CreatePostFormData, Post} from "../models/postModels";
+import {CreatePostFormData, Post, UpdatePostFormData} from "../models/postModels";
 import {postsApi} from "../store/api";
-import {getDefaultPreviewUrl, getDefaultValues, prepareCreatePostData} from "../utils/createPostUtils";
+import {
+  getDefaultPreviewUrl,
+  getDefaultValues,
+  prepareCreatePostData,
+  prepareUpdatePostData
+} from "../utils/createPostUtils";
 import {useAppSelector} from "../../../common/store/hooks";
 
 const labelStyles = { m: '14px 0' }
 
 export interface EditPostConfig {
   isEditMode: boolean,
-  post: Post
+  post: Post,
+  setIsEditMode: Dispatch<SetStateAction<boolean>>
 }
 
 const CreatePostForm: FC<{editPostConfig?: EditPostConfig}> = ({editPostConfig}) => {
@@ -25,13 +31,13 @@ const CreatePostForm: FC<{editPostConfig?: EditPostConfig}> = ({editPostConfig})
   const [createPost, {}] = postsApi.useCreatePostMutation()
   const [updatePost, {}] = postsApi.useUpdatePostMutation()
 
-  const onSubmit: SubmitHandler<CreatePostFormData> = createPostData => {
-    const preparedData = prepareCreatePostData({...createPostData, userId: user?.id as number})
+  const onSubmit: SubmitHandler<CreatePostFormData | UpdatePostFormData> = createPostData => {
     if(editPostConfig) {
-      updatePost(preparedData)
+      updatePost(prepareUpdatePostData({...createPostData, userId: user?.id as number}, editPostConfig.post.id));
+      editPostConfig.setIsEditMode(false)
       return
     }
-    createPost(preparedData)
+    createPost(prepareCreatePostData({...createPostData, userId: user?.id as number}))
   };
 
   const handleImageChange = (e: FileList) => {

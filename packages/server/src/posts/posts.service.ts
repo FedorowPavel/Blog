@@ -3,6 +3,7 @@ import {CreatePostDto} from "./dto/create-post.dto";
 import {InjectModel} from "@nestjs/sequelize";
 import {Post} from "./posts.model";
 import {FilesService} from "../files/files.service";
+import {UpdatePostDto} from "./dto/update-post.dto";
 
 @Injectable()
 export class PostsService {
@@ -17,6 +18,24 @@ export class PostsService {
     const fileName = await this.filesService.createFile(image)
     const post = await this.postRepository.create({...dto, image: fileName})
     return post
+  }
+
+  async update(dto: UpdatePostDto, image: any) {
+    try {
+      const postId = dto.postId
+      const existingPost = await this.postRepository.findOne({where: {id: postId}})
+      existingPost.title = dto.title
+      existingPost.summary = dto.summary
+      existingPost.content = dto.content
+      if(image) {
+        const fileName = await this.filesService.createFile(image)
+        existingPost.image = fileName
+      }
+      existingPost.save()
+      return existingPost
+    } catch {
+      throw new Error('Error while updating post')
+    }
   }
 
   async delete(id: number) {

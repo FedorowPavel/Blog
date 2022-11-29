@@ -14,7 +14,7 @@ const Post = () => {
   const [editMode, setIsEditMode] = useState<boolean>(false)
 
   const {id} = useParams<{id: string}>();
-  const {data: post, isLoading} = postsApi.useGetPostQuery(Number(id))
+  const {data: post, isLoading, isFetching} = postsApi.useGetPostQuery(Number(id))
   const isToolBarShown = user?.id === post?.author.id
 
   return (
@@ -26,7 +26,7 @@ const Post = () => {
       {
         !editMode ? <PostCard/> : <PostCardEditMode/>
       }
-      <BlogFullCoveringSpinner isLoading={isLoading}/>
+      <BlogFullCoveringSpinner isLoading={isLoading || isFetching}/>
     </PostContext.Provider>
   );
 }

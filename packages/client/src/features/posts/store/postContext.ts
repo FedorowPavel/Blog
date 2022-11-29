@@ -1,8 +1,10 @@
 import {createContext, Dispatch, SetStateAction} from "react";
 import {Post} from "../models/postModels";
 
-export const PostContext = createContext<{
+export interface PostContextModel {
   editMode: boolean,
   setIsEditMode: Dispatch<SetStateAction<boolean>>,
   post: Post | undefined
-} | undefined>(undefined)
+}
+
+export const PostContext = createContext<PostContextModel>({} as PostContextModel)

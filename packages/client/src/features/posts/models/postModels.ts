@@ -27,6 +27,10 @@ export interface CreatePostFormData {
   content: string
 }
 
+export interface UpdatePostFormData extends CreatePostFormData{
+  postId: number
+}
+
 export interface CreatePostData extends CreatePostFormData {
   userId: number
 }

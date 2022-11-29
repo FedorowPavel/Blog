@@ -12,6 +12,12 @@ export function prepareCreatePostData(data: CreatePostData): FormData {
   return formData
 }
 
+export function prepareUpdatePostData(data: CreatePostData, postId: number): FormData {
+  const formData =  prepareCreatePostData(data)
+  formData.append('postId', String(postId))
+  return formData
+}
+
 export const getDefaultValues = (editPostConfig?: EditPostConfig): Partial<CreatePostFormData> => {
   if(editPostConfig) {
     return {
