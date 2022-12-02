@@ -15,6 +15,7 @@ const BlogSimpleCard: FC<Props> = ({sxProps, children}) => {
         display: "flex",
         flexDirection: "column",
         padding: 4,
+        mb: 2,
         borderRadius: 4,
         boxShadow: 2,
         position: 'relative',

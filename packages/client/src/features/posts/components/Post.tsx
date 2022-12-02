@@ -8,6 +8,7 @@ import PostCardEditMode from './PostCardEditMode';
 import PostToolbar from "./PostToolbar";
 import {useAppSelector} from "../../../common/store/hooks";
 import {PostContext} from "../store/postContext";
+import CommentsSection from "../../comments";
 
 const Post = () => {
   const {user} = useAppSelector(state => state.authReducer)
@@ -24,7 +25,12 @@ const Post = () => {
         isToolBarShown ? <PostToolbar/> : null
       }
       {
-        !editMode ? <PostCard/> : <PostCardEditMode/>
+        !editMode
+          ? <>
+            <PostCard/>
+            <CommentsSection/>
+          </>
+          : <PostCardEditMode/>
       }
       <BlogFullCoveringSpinner isLoading={isLoading || isFetching}/>
     </PostContext.Provider>

@@ -15,7 +15,7 @@ export const setupStore = () => {
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ['Posts', 'SinglePost'],
+  tagTypes: ['Posts', 'SinglePost', 'Comments'],
   endpoints: () => ({}),
 })
 
