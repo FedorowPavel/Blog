@@ -1,6 +1,7 @@
-import {BelongsTo, BelongsToMany, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
+import {BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table} from "sequelize-typescript";
 import {User} from "../users/users.model";
 import {UserRoles} from "../roles/user-roles.model";
+import {Coment} from "../comments/comment.model";
 
 interface PostCreationAttrs {
   title: string,
@@ -38,4 +39,7 @@ export class Post extends Model<Post, PostCreationAttrs> {
 
   @BelongsTo(() => User)
   author: User;
+
+  @HasMany(() => Coment)
+  comments: Coment[]
 }
