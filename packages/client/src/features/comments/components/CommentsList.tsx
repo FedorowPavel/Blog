@@ -1,29 +1,17 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {CommentModel} from "../models/commentModel";
-import {User} from "../../../common/models/userModels";
 import SingleComment from "./SingleComment";
+import { Typography } from '@mui/material';
 
 
-const comments: CommentModel[] = [
-  {
-    text: 'comment text 1',
-    author: {nickname: 'name 1', image: 'url'} as User,
-    userId: 1,
-    postId: 1,
-    createdAt: '01-02-2022',
-    id: 1,
-  },
-  {
-    text: 'comment text 2',
-    author: {nickname: 'name 2', image: 'url'} as User,
-    userId: 2,
-    postId: 3,
-    createdAt: '01-02-2022',
-    id: 2
-  },
-]
+const CommentsList: FC<{ comments: CommentModel[] | undefined }>= ({comments}) => {
 
-const CommentsList = () => {
+  if(!comments || !comments.length) {
+    return <Typography variant="h4">
+      No comments yet
+    </Typography>
+  }
+
   return (
     <>
       {

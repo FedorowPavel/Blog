@@ -10,7 +10,6 @@ export class CommentsService {
   ) {
   }
 
-
   async addComment(dto: CreateCommentDto) {
     const comment = await this.comentRepository.create({...dto})
     return comment

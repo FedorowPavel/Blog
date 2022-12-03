@@ -14,7 +14,7 @@ const AddCommentForm = () => {
       mode: 'all'
     }
   );
-  const [createComment] = commentsApi.useCreateCommentMutation()
+  const [createComment] = commentsApi.useAddCommentMutation()
 
   const onSubmit = (data: {comment: string}) => {
     createComment({text: data.comment, userId: user?.id as number, postId: postCtx.post?.id as number})

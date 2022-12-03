@@ -1,12 +1,14 @@
 import {User} from "../../../common/models/userModels";
+import {Post} from "../../posts/models/postModels";
 
 export interface CommentModel {
+  id: number
   text: string,
   author: User,
+  post: Post,
   userId: number,
   postId: number,
   createdAt: string,
-  id: number
 }
 
 export interface CreateCommentData {

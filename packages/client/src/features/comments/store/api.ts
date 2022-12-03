@@ -3,12 +3,12 @@ import {CommentModel, CreateCommentData} from "../models/commentModel";
 
 export const commentsApi = api.injectEndpoints({
   endpoints: (build) =>  ({
-    getPostComments: build.query<CommentModel[], {postId: number}>({
+    getPostComments: build.query<CommentModel[], number>({
       providesTags: ['Comments'],
-      query: () => ({url: 'comments/all'}),
+      query: (postId) => ({url: `comments/?postId=${postId}`}),
     }),
 
-    createComment: build.mutation<CommentModel, CreateCommentData>({
+    addComment: build.mutation<CommentModel, CreateCommentData>({
       query: (data) => ({
         method: 'POST',
         url: `comments`,
