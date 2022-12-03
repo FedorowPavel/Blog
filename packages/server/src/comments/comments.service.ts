@@ -15,4 +15,9 @@ export class CommentsService {
     const comment = await this.comentRepository.create({...dto})
     return comment
   }
+
+  async getPostCommentsById(id: number) {
+    const comments = await this.comentRepository.findAll({where: {postId: id}, include: {all: true}})
+    return comments
+  }
 }
