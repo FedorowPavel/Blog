@@ -36,7 +36,7 @@ const PostPreviewCard: FC<PostCardProps> = ({post}) => {
 
   return (
     <>
-      <BlogSimpleCard sxProps={{margin: '40px 0'}} key={id}>
+      <BlogSimpleCard sxProps={{mb: 4}} key={id}>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
 
           <PostRating postRating={post.rating} postId={post.id}/>

@@ -42,6 +42,12 @@ export class PostsController {
     return this.postService.delete(dto.postId)
   }
 
+  @Get('/page')
+  @UseGuards(JwtAuthGuards)
+  getPagePosts(@Query() query: { offset: string, limit: string }) {
+    return this.postService.getPagePosts(query)
+  }
+
   @Get('/all')
   @UseGuards(JwtAuthGuards)
   getAllPosts() {

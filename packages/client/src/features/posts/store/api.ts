@@ -1,9 +1,11 @@
-import {CreatePostData, Post} from "../models/postModels";
+import {Post} from "../models/postModels";
 import {api} from "../../../common/store";
-import {User} from "../../../common/models/userModels";
-import {CredentialsFormData} from "../../auth/baseAuth/models/types";
-import {setUser} from "../../auth/baseAuth/store/reducers/authSlice";
-import {setDataToLocalStorage} from "../../../common/utils/localStorageUtils";
+import {PaginationConfigModel} from "../models/paginationConfigModel";
+
+export interface GetPagePostsModel {
+  posts: Post[],
+  totalAmount: number
+}
 
 export const postsApi = api.injectEndpoints({
   endpoints: (build) =>  ({
@@ -11,6 +13,12 @@ export const postsApi = api.injectEndpoints({
       providesTags: ['Posts'],
       query: () => ({url: 'posts/all'}),
       transformResponse: (response: Post[]) => response,
+    }),
+
+    getPagePosts: build.query<GetPagePostsModel, PaginationConfigModel>({
+      providesTags: ['PagePosts'],
+      query: ({offset, postsPerPage}) => ({url: `posts/page/?offset=${offset}&limit=${postsPerPage}`}),
+      transformResponse: (response: GetPagePostsModel) => response,
     }),
 
     getPost: build.query<Post, number>({
@@ -43,7 +51,7 @@ export const postsApi = api.injectEndpoints({
         url: `posts`,
         body: {postId: postId},
       }),
-      invalidatesTags: ['Posts']
+      invalidatesTags: ['PagePosts']
     }),
 
     updatePostRating: build.mutation<{message: string}, {postId: number, delta: number}>({
@@ -52,7 +60,7 @@ export const postsApi = api.injectEndpoints({
         url: `posts/updateRating`,
         body: {postId: postId, delta: delta},
       }),
-      invalidatesTags: ['Posts']
+      invalidatesTags: ['PagePosts']
     }),
   })
 })

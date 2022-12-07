@@ -65,6 +65,19 @@ export class PostsService {
     return post
   }
 
+  async getPagePosts(config: {offset: string, limit: string}) {
+    const allPosts = await this.postRepository.findAll({include: {all: true}})
+    const offset = Number(config.offset)
+    const postsPerPage = Number(config.limit)
+
+    const from = offset * postsPerPage;
+    const to  = offset * postsPerPage + postsPerPage
+    return {
+      posts: allPosts.slice(from, to),
+      totalAmount: allPosts.length
+    }
+  }
+
   async getSinglePosts(id: number) {
     const post = await this.postRepository.findOne({where: {id}, include: {all: true}})
     return post
